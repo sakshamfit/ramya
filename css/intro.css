@@ -1,0 +1,289 @@
+/* ==========================================================================
+   Geetha Jewellers — PHASE 01 · Cinematic Intro / Logo Opening
+   --------------------------------------------------------------------------
+   A ~2.8s continuous brand film on load (spec Phase-01): near-black → a gold
+   point blooms → the macro gold surface (keyframe A, untouched) approaches
+   while a light veil holds its centre → the veil contracts and the GJS
+   emblem, then GEETHA JEWELLERS / SINCE 1998 are revealed by light → a
+   metallic sweep crosses → under a keyframe-B bloom pulse the film hands
+   off to the live lockup in the marble colonnade (keyframe C) → the lockup
+   shrinks and travels into the exact header logo position while the page
+   appears beneath. GPU transforms/opacity/filter only; reduced motion gets
+   a short fade; no layout shift (fixed overlay).
+   ========================================================================== */
+
+.gji {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: #060302;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+html.gji-run { overflow: hidden; }
+html.gji-run .gj-logo img { opacity: 0; }
+html.gji-land .gj-logo img { opacity: 1; transition: opacity 0.35s ease 0.08s; }
+
+.gji--out { opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
+
+.gji__hall, .gji__gold {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+.gji__hall img, .gji__gold img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---- keyframe A: the approaching gold */
+.gji.play .gji__gold {
+  animation:
+    gji-gold-in 0.55s ease-out 0.28s both,
+    gji-gold-zoom 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both,
+    gji-gold-out 0.32s ease 1.52s forwards;
+}
+
+@keyframes gji-gold-in { from { opacity: 0; filter: brightness(0.4) saturate(0.9); } to { opacity: 1; filter: brightness(1) saturate(1); } }
+@keyframes gji-gold-zoom { from { transform: scale(1.55); } to { transform: scale(1.1); } }
+@keyframes gji-gold-out { to { opacity: 0; transform: scale(1.02); } }
+
+/* ---- keyframe C: the colonnade the film settles into */
+.gji.play .gji__hall {
+  animation:
+    gji-hall-in 0.5s ease 1.52s both,
+    gji-hall-zoom 1.15s cubic-bezier(0.22, 1, 0.36, 1) 1.52s both;
+}
+
+@keyframes gji-hall-in { from { opacity: 0; filter: brightness(0.75); } to { opacity: 1; filter: brightness(1); } }
+@keyframes gji-hall-zoom { from { transform: scale(1.42); } to { transform: scale(1); } }
+
+/* ---- the light veil: the gold point that becomes the reveal light */
+.gji__veil {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  width: 62vmin;
+  height: 62vmin;
+  margin: -31vmin 0 0 -31vmin;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 216, 130, 0.98) 0%, rgba(255, 178, 60, 0.62) 38%, rgba(255, 150, 30, 0.22) 62%, rgba(255, 150, 30, 0) 74%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.gji.play .gji__veil { animation: gji-veil 1.62s cubic-bezier(0.4, 0, 0.3, 1) 0.14s both; }
+
+@keyframes gji-veil {
+  0%   { transform: scale(0.06); opacity: 0; }
+  10%  { opacity: 0.85; }
+  26%  { transform: scale(0.95) translateY(0); opacity: 0.97; }   /* the gold point */
+  50%  { transform: scale(2.1) translateY(0); opacity: 0.92; }    /* covers emblem + text */
+  76%  { transform: scale(1.28) translateY(14vmin); opacity: 0.8; } /* emblem revealed, text still lit */
+  100% { transform: scale(1.5) translateY(9vmin); opacity: 0; }   /* text revealed */
+}
+
+/* the wordmark band rests in shadow until the light reaches it (stage 05) */
+.gji__shade {
+  position: absolute;
+  left: 50%;
+  top: 66%;
+  width: 96vmin;
+  height: 34vmin;
+  margin: -17vmin 0 0 -48vmin;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(8, 5, 2, 0.9) 0%, rgba(8, 5, 2, 0.55) 45%, rgba(8, 5, 2, 0) 72%);
+  opacity: 0;
+  will-change: opacity;
+}
+
+.gji.play .gji__shade { animation: gji-shade 1.55s ease 0.3s both; }
+
+@keyframes gji-shade {
+  0% { opacity: 1; }
+  62% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ---- keyframe-B bloom pulse: covers the baked -> live hand-off */
+.gji__burst {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 90vmin;
+  height: 64vmin;
+  margin: -32vmin 0 0 -45vmin;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 210, 120, 0.9) 0%, rgba(255, 170, 55, 0.4) 45%, rgba(255, 160, 40, 0) 72%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.gji.play .gji__burst { animation: gji-burst 0.64s ease-out 1.46s both; }
+
+@keyframes gji-burst {
+  0% { opacity: 0; transform: scale(0.55); }
+  45% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+/* ---- metallic light sweeps */
+.gji__sweep { position: absolute; inset: -10% -30%; pointer-events: none; }
+
+.gji__sweep::before, .gji__sweep::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 18%;
+  left: 0;
+  transform: translateX(-160%) skewX(-16deg);
+  background: linear-gradient(100deg, rgba(255, 226, 150, 0) 10%, rgba(255, 226, 150, 0.55) 50%, rgba(255, 226, 150, 0) 90%);
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+
+.gji.play .gji__sweep::before { animation: gji-sweep 0.55s cubic-bezier(0.4, 0, 0.4, 1) 0.72s both; }
+.gji.play .gji__sweep::after { animation: gji-sweep 0.6s cubic-bezier(0.4, 0, 0.4, 1) 2.02s both; opacity: 0; }
+
+@keyframes gji-sweep {
+  0% { transform: translateX(-160%) skewX(-16deg); opacity: 0; }
+  18% { opacity: 0.85; }
+  82% { opacity: 0.7; }
+  100% { transform: translateX(760%) skewX(-16deg); opacity: 0; }
+}
+
+/* ---- drifting gold sparks */
+.gji__sparks { position: absolute; inset: 0; pointer-events: none; }
+
+.gji__sparks i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe9b0, rgba(255, 200, 90, 0));
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.gji__sparks i:nth-child(1) { left: 38%; top: 62%; }
+.gji__sparks i:nth-child(2) { left: 61%; top: 55%; width: 4px; height: 4px; }
+.gji__sparks i:nth-child(3) { left: 45%; top: 38%; width: 3px; height: 3px; }
+.gji__sparks i:nth-child(4) { left: 57%; top: 70%; }
+.gji__sparks i:nth-child(5) { left: 33%; top: 45%; width: 3px; height: 3px; }
+.gji__sparks i:nth-child(6) { left: 66%; top: 40%; width: 4px; height: 4px; }
+
+.gji.play .gji__sparks i { animation: gji-spark 1.3s ease-out both; }
+.gji.play .gji__sparks i:nth-child(1) { animation-delay: 0.45s; }
+.gji.play .gji__sparks i:nth-child(2) { animation-delay: 0.6s; }
+.gji.play .gji__sparks i:nth-child(3) { animation-delay: 0.78s; }
+.gji.play .gji__sparks i:nth-child(4) { animation-delay: 0.9s; }
+.gji.play .gji__sparks i:nth-child(5) { animation-delay: 1.05s; }
+.gji.play .gji__sparks i:nth-child(6) { animation-delay: 1.2s; }
+
+@keyframes gji-spark {
+  0% { transform: translateY(2vmin) scale(0.6); opacity: 0; }
+  25% { opacity: 0.95; }
+  100% { transform: translateY(-9vmin) scale(1.1); opacity: 0; }
+}
+
+/* ---- the live lockup (keyframes B/C, then travels into the header) */
+.gji__lock {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(0, 0);
+  translate: -50% -57%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.gji.play .gji__lock { animation: gji-lock-in 0.45s ease 1.64s both; }
+
+@keyframes gji-lock-in { from { opacity: 0; scale: 0.94; } to { opacity: 1; scale: 1; } }
+
+.gji__lock-gold {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.gji__emblem {
+  width: 24vmin;
+  height: auto;
+  display: block;
+  margin-bottom: 0.6vmin;
+}
+
+.gji__word {
+  font-family: "Cinzel", "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  font-size: 4.15vmin;
+  letter-spacing: 0.13em;
+  white-space: nowrap;
+  background: linear-gradient(180deg, #ffe6ad 8%, #e9b95e 45%, #b07f2e 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 24px rgba(255, 190, 80, 0.35);
+}
+
+.gji__since {
+  display: flex;
+  align-items: center;
+  gap: 1.6vmin;
+  margin-top: 1vmin;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 1.95vmin;
+  letter-spacing: 0.34em;
+  white-space: nowrap;
+  background: linear-gradient(180deg, #f7d896, #c69544);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gji__since i { width: 5.4vmin; height: 1px; background: linear-gradient(90deg, rgba(233, 185, 94, 0), #e9b95e); }
+.gji__since i:last-child { background: linear-gradient(90deg, #e9b95e, rgba(233, 185, 94, 0)); }
+
+/* word + since are also individually staged (they follow the emblem) */
+.gji.play .gji__word { animation: gji-word-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 1.74s both; }
+.gji.play .gji__since { animation: gji-word-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 1.84s both; }
+
+@keyframes gji-word-in { from { opacity: 0; transform: translateY(1.6vmin); } to { opacity: 1; transform: none; } }
+
+/* the real header logo, crossfaded in during the travel */
+.gji__final {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 25vmin;
+  height: auto;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.gji--swap .gji__lock-gold { opacity: 0; }
+.gji--swap .gji__final { opacity: 1; }
+
+/* ---- reduced motion: a short elegant fade */
+@media (prefers-reduced-motion: reduce) {
+  .gji--rm .gji__hall { opacity: 1; transform: none; animation: none; transition: opacity 0.4s ease; }
+  .gji--rm .gji__lock { opacity: 1; animation: none; }
+  .gji--rm .gji__gold, .gji--rm .gji__veil, .gji--rm .gji__burst, .gji--rm .gji__shade,
+  .gji--rm .gji__sweep, .gji--rm .gji__sparks { display: none; }
+}

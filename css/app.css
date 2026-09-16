@@ -1,0 +1,489 @@
+/* ==========================================================================
+   Geetha Jewellers — SECTION 11 · App Download + Footer  (Phase-02, final)
+   --------------------------------------------------------------------------
+   The premium continuation after the store/trust journey (spec §15): the
+   phones-on-podium composition enters with subtle depth/scale and settles
+   into position (no spinning-phone gimmicks), the feature grid reveals in
+   small staggered groups, store badges + QR stay crisp, and the page closes
+   deliberately: the "More Than Just an App" benefits panel, then a refined
+   CREAM footer (gold/brown type, thin rules — no black block) whose columns
+   fade calmly upward. All [data-section] driven, reversible, reduced-motion
+   safe.
+   ========================================================================== */
+
+.gja, .gjf {
+  --gja-gold: #a9853c;
+  --gja-brown: #6b4a22;
+  --gja-ink: #3f3428;
+  --gja-body: #6f6355;
+  position: relative;
+  font-family: "Jost", "Segoe UI", system-ui, sans-serif;
+}
+
+.gja { background: linear-gradient(180deg, #fdfbf4, #f8f1e4); }
+
+.gja::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 64px;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(to bottom, #f6f0e4, rgba(246, 240, 228, 0));
+}
+
+/* ============================================================ app band */
+.gja__band {
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
+}
+
+@media (min-width: 1024px) {
+  .gja__band { aspect-ratio: 1024 / 905; }
+}
+
+/* the phones + podium plate (feathered edges melt into the band) */
+.gja__scene {
+  position: absolute;
+  left: 45.9%;
+  top: 5.5%;
+  width: 54.1%;
+  margin: 0;
+  z-index: 1;
+  will-change: transform;
+  container-type: inline-size;
+}
+
+.gja__scene > picture { display: block; transition: opacity 1.3s ease 0.2s, transform 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s; transform-origin: 50% 78%; }
+.gja__scene img { width: 100%; height: auto; display: block; }
+
+.js .gja__band:not(.is-in) .gja__scene > picture { opacity: 0; transform: scale(0.945) translateY(2.6%); }
+
+/* the podium engraving rides the plate */
+.gja__engrave {
+  position: absolute;
+  left: 26%;
+  top: 79.2%;
+  width: 31%;
+  margin: 0;
+  text-align: center;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: #8a6a3f;
+  text-shadow: 0 1px 0 rgba(255, 252, 244, 0.5);
+  transform: rotate(-0.6deg);
+  transition: opacity 1s ease 0.8s;
+}
+
+.gja__engrave b {
+  display: block;
+  font-weight: 600;
+  font-size: 2.5cqw;
+  letter-spacing: 0.34em;
+  line-height: 1.9;
+  text-transform: uppercase;
+}
+
+.gja__engrave i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4cqw;
+  margin-top: 0.7cqw;
+  font-style: normal;
+  font-size: 2.2cqw;
+  color: #b18c3f;
+}
+
+.gja__engrave i::before, .gja__engrave i::after { content: ""; width: 7cqw; height: 1px; background: rgba(169, 133, 60, 0.55); }
+
+.js .gja__band:not(.is-in) .gja__engrave { opacity: 0; }
+
+/* the margin annotation (rebuilt as live text over the plate) */
+.gja__lux {
+  position: absolute;
+  left: 81.5%;
+  top: 5%;
+  margin: 0;
+  text-align: center;
+  font-size: 1.9cqw;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  line-height: 2.2;
+  color: #7a6a4e;
+  transition: opacity 1s ease 1s;
+}
+
+.gja__lux i { display: block; font-style: normal; font-size: 2.4cqw; color: var(--gja-gold); margin-bottom: 1cqw; }
+.gja__lux::after { content: ""; display: block; width: 1px; height: 14cqw; margin: 2cqw auto 0; background: rgba(169, 133, 60, 0.55); }
+
+.js .gja__band:not(.is-in) .gja__lux { opacity: 0; }
+
+/* ------------------------------------------------------------ left column */
+.gja__copy {
+  position: absolute;
+  left: 6.3%;
+  top: 3.2%;
+  width: 41%;
+  z-index: 2;
+}
+
+.gja__eyebrow {
+  margin: 0 0 1.3cqw;
+  font-size: 1.28cqw;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  line-height: 1.9;
+  color: #8a6f3a;
+  white-space: nowrap;
+}
+
+.gja__eyebrow i { display: inline-block; vertical-align: middle; width: 6cqw; height: 1px; margin-left: 1.2cqw; background: rgba(169, 133, 60, 0.65); }
+
+.gja__h2 {
+  margin: 0 0 1.2cqw;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: 6.6cqw;
+  line-height: 0.94;
+  color: var(--gja-brown);
+  text-shadow: 0 2px 8px rgba(120, 85, 35, 0.12);
+}
+
+.gja__sub {
+  margin: 0 0 1.2cqw;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: 2.7cqw;
+  line-height: 1.16;
+  color: #7d4426;
+}
+
+.gja__desc {
+  margin: 0 0 1.6cqw;
+  width: 40cqw;
+  font-size: 1.58cqw;
+  line-height: 1.6;
+  color: var(--gja-body);
+}
+
+/* feature grid: 3 x 2, revealed in small staggered groups */
+.gja__feats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8cqw 2cqw;
+  margin: 0 0 1.8cqw;
+  padding: 0;
+  list-style: none;
+}
+
+.gja__feats i {
+  display: grid;
+  place-items: center;
+  width: 4.6cqw;
+  height: 4.6cqw;
+  margin-bottom: 0.8cqw;
+  border-radius: 50%;
+  border: 1px solid rgba(190, 152, 70, 0.75);
+  background: rgba(255, 253, 246, 0.5);
+}
+
+.gja__feats svg { width: 48%; height: 48%; stroke: #b0862f; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.gja__feats b { display: block; font-size: 1.45cqw; font-weight: 600; line-height: 1.34; color: var(--gja-ink); }
+.gja__feats span { display: block; margin-top: 0.4cqw; font-size: 1.3cqw; line-height: 1.42; color: #8a7a68; }
+
+/* store badges + QR row */
+.gja__stores { display: flex; gap: 1.6cqw; margin: 0 0 1.8cqw; }
+
+.gja__store-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1cqw;
+  padding: 0.9cqw 1.7cqw 0.9cqw 1.4cqw;
+  background: #fffdf8;
+  border: 1.5px solid rgba(202, 169, 108, 0.8);
+  border-radius: 1.2cqw;
+  text-decoration: none;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.gja__store-btn:hover, .gja__store-btn:focus-visible { box-shadow: 0 10px 24px rgba(150, 110, 45, 0.18); transform: translateY(-2px); }
+.gja__store-btn svg { width: 2.6cqw; height: 2.6cqw; }
+.gja__store-btn small { display: block; font-size: 0.95cqw; letter-spacing: 0.06em; color: #6f6355; }
+.gja__store-btn b { display: block; font-size: 1.8cqw; font-weight: 600; line-height: 1.1; color: #2e2417; }
+
+.gja__qr-row { display: flex; align-items: center; gap: 2cqw; margin: 0; }
+
+.gja__qr-row > img {
+  width: 8.2cqw;
+  height: 8.2cqw;
+  border-radius: 0.9cqw;
+  box-shadow: 0 6px 16px rgba(150, 110, 45, 0.14);
+}
+
+.gja__qr-note { font-size: 1.5cqw; line-height: 1.55; color: var(--gja-ink); white-space: nowrap; }
+
+.gja__qr-row .gja__vr { width: 1px; align-self: stretch; margin: 0.6cqw 0; background: rgba(169, 133, 60, 0.45); }
+
+.gja__quote {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 1.9cqw;
+  line-height: 1.5;
+  color: #8a5a30;
+  white-space: nowrap;
+}
+
+/* ======================================================== benefits band */
+.gja__more { padding: 0 0.8% 1%; }
+
+.gja__more-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30% 1fr 1fr 1fr;
+  align-items: center;
+  gap: 2vw;
+  padding: clamp(26px, 3vw, 46px) clamp(22px, 3.6vw, 56px);
+  background: linear-gradient(120deg, #faf3e2, #f6ecd8);
+  border-radius: clamp(12px, 1.6vw, 24px);
+  box-shadow: 0 18px 40px rgba(150, 110, 50, 0.08);
+}
+
+.gja__more-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 10px;
+  font-size: clamp(9.5px, 0.78vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #8a6f3a;
+}
+
+.gja__more-eyebrow::after { content: ""; width: clamp(24px, 2.6vw, 42px); height: 1px; background: rgba(169, 133, 60, 0.6); }
+
+.gja__more-h {
+  margin: 0 0 12px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(26px, 2.9vw, 44px);
+  line-height: 1.08;
+  color: #5d4520;
+}
+
+.gja__more-p { margin: 0; font-size: clamp(13px, 1.05vw, 16.5px); line-height: 1.55; color: var(--gja-body); }
+
+.gja__benefit { position: relative; text-align: center; padding: 6px clamp(8px, 1.2vw, 20px); }
+
+.gja__benefit + .gja__benefit::before,
+.gja__benefit--first::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8%;
+  height: 84%;
+  width: 1px;
+  background: rgba(169, 133, 60, 0.35);
+}
+
+.gja__benefit i {
+  display: grid;
+  place-items: center;
+  width: clamp(46px, 4.3vw, 66px);
+  height: clamp(46px, 4.3vw, 66px);
+  margin: 0 auto clamp(10px, 1vw, 16px);
+  border-radius: 50%;
+  border: 1px solid rgba(190, 152, 70, 0.75);
+}
+
+.gja__benefit svg { width: 46%; height: 46%; stroke: #8a6f3a; fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+
+.gja__benefit b {
+  display: block;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(13.5px, 1.15vw, 17.5px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: #7d5f27;
+}
+
+.gja__benefit span { display: block; margin-top: clamp(8px, 0.8vw, 12px); font-size: clamp(12px, 0.98vw, 15px); line-height: 1.5; color: #8a7a68; }
+
+/* ================================================================ footer */
+.gjf { background: linear-gradient(180deg, #fbf7ec, #fdfbf3); }
+
+.gjf__grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.8fr 1fr 1.35fr;
+  gap: clamp(24px, 3.4vw, 60px);
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: clamp(40px, 5.6svh, 76px) clamp(22px, 4.5vw, 68px) clamp(26px, 3.4svh, 44px);
+}
+
+.gjf__mono { width: clamp(60px, 5.4vw, 88px); margin-bottom: 12px; }
+.gjf__mono img { width: 100%; height: auto; display: block; }
+
+.gjf__name {
+  margin: 0 0 4px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(19px, 1.7vw, 27px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #a1742c;
+  white-space: nowrap;
+}
+
+.gjf__tag {
+  margin: 0 0 16px;
+  font-size: clamp(9.5px, 0.8vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #b18c3f;
+}
+
+.gjf__about { margin: 0 0 20px; font-size: clamp(13px, 1.02vw, 15.5px); line-height: 1.65; color: #5d5346; }
+
+.gjf__social { display: flex; gap: 12px; margin: 0; padding: 0; list-style: none; }
+
+.gjf__social a {
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 3vw, 46px);
+  height: clamp(38px, 3vw, 46px);
+  border-radius: 50%;
+  border: 1px solid rgba(169, 133, 60, 0.6);
+  transition: background 0.35s ease;
+}
+
+.gjf__social svg { width: 44%; height: 44%; stroke: #a1742c; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.35s ease, fill 0.35s ease; }
+.gjf__social svg .f { fill: #a1742c; stroke: none; }
+.gjf__social a:hover, .gjf__social a:focus-visible { background: var(--gja-gold); }
+.gjf__social a:hover svg, .gjf__social a:focus-visible svg { stroke: #fffdf4; }
+.gjf__social a:hover svg .f, .gjf__social a:focus-visible svg .f { fill: #fffdf4; }
+
+.gjf__h {
+  margin: 0 0 8px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(18px, 1.55vw, 25px);
+  color: #9d6b28;
+}
+
+.gjf__h::after { content: ""; display: block; width: 34px; height: 2px; margin-top: 8px; background: rgba(169, 133, 60, 0.7); }
+
+.gjf__links { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.gjf__links a { font-size: clamp(13.5px, 1.05vw, 16px); color: #4f4639; text-decoration: none; transition: color 0.3s ease; }
+.gjf__links a:hover, .gjf__links a:focus-visible { color: #a1742c; }
+
+.gjf__contact { border-left: 1px solid rgba(169, 133, 60, 0.25); padding-left: clamp(18px, 2.4vw, 40px); }
+
+.gjf__crows { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 13px; }
+.gjf__crows li { display: flex; gap: 12px; font-size: clamp(13px, 1.02vw, 15.5px); line-height: 1.5; color: #5d5346; }
+.gjf__crows svg { flex: 0 0 17px; width: 17px; height: 17px; margin-top: 2px; stroke: #b0862f; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.gjf__crows a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+.gjf__crows a:hover, .gjf__crows a:focus-visible { color: #a1742c; }
+
+.gjf__map {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 20px;
+  padding: 11px 24px;
+  border: 1px solid rgba(169, 133, 60, 0.7);
+  border-radius: 999px;
+  font-size: clamp(12.5px, 1vw, 15px);
+  color: #9d6b28;
+  text-decoration: none;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+.gjf__map span { transition: transform 0.35s ease; }
+.gjf__map:hover, .gjf__map:focus-visible { background: var(--gja-gold); color: #fffdf4; }
+.gjf__map:hover span { transform: translateX(4px); }
+
+.gjf__bar { max-width: 1380px; margin: 0 auto; padding: 0 clamp(22px, 4.5vw, 68px) clamp(24px, 3svh, 38px); }
+
+.gjf__rule { display: flex; align-items: center; gap: 14px; color: #b0862f; font-size: 13px; }
+.gjf__rule::before, .gjf__rule::after { content: ""; flex: 1; height: 1px; background: rgba(169, 133, 60, 0.4); }
+
+.gjf__row { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 16px; flex-wrap: wrap; }
+.gjf__row p { margin: 0; font-size: clamp(12px, 0.95vw, 14.5px); color: #6f6355; }
+.gjf__made { display: inline-flex; align-items: center; gap: 7px; }
+.gjf__made svg { width: 15px; height: 15px; stroke: #b0862f; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ------------------------------------------------------------ reveal system */
+.js :is(.gja, .gjf) [data-rv] {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.85s ease var(--d, 0s), transform 1s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+}
+
+.js .gja [data-section]:not(.is-in) [data-rv],
+.js .gjf:not(.is-in) [data-rv] { opacity: 0; transform: translateY(16px); }
+
+/* --------------------------------------------------------------- compact */
+@media (max-width: 1023px) {
+  .gja__band { padding-bottom: 8px; }
+
+  .gja__copy {
+    position: relative;
+    inset: auto;
+    width: auto;
+    padding: 50px clamp(20px, 6vw, 56px) 0;
+  }
+
+  .gja__eyebrow { font-size: 10.5px; line-height: 1.9; margin-bottom: 14px; }
+  .gja__eyebrow i { width: 44px; margin-left: 10px; }
+  .gja__h2 { font-size: clamp(44px, 12vw, 64px); margin-bottom: 14px; }
+  .gja__sub { font-size: clamp(22px, 6vw, 28px); margin-bottom: 12px; }
+  .gja__desc { width: auto; max-width: 470px; font-size: clamp(14px, 3.8vw, 16px); margin-bottom: 24px; }
+
+  .gja__feats { grid-template-columns: 1fr 1fr; gap: 22px 14px; margin-bottom: 26px; }
+  .gja__feats i { width: 44px; height: 44px; margin-bottom: 8px; }
+  .gja__feats b { font-size: 14px; }
+  .gja__feats span { font-size: 12.5px; margin-top: 4px; }
+
+  .gja__stores { flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+  .gja__store-btn { gap: 10px; padding: 10px 18px 10px 14px; border-radius: 12px; }
+  .gja__store-btn svg { width: 24px; height: 24px; }
+  .gja__store-btn small { font-size: 9.5px; }
+  .gja__store-btn b { font-size: 16px; }
+
+  .gja__qr-row { gap: 16px; flex-wrap: wrap; }
+  .gja__qr-row > img { width: 84px; height: 84px; border-radius: 8px; }
+  .gja__qr-note { font-size: 13.5px; }
+  .gja__qr-row .gja__vr { display: none; }
+  .gja__quote { font-size: 17px; max-width: 300px; }
+
+  .gja__scene { position: relative; left: auto; top: auto; width: auto; margin: 26px 0 0; }
+  .gja__engrave b { font-size: 2.5cqw; }
+
+  .gja__more { padding: 0 12px 12px; }
+  .gja__more-panel { grid-template-columns: 1fr; gap: 22px; text-align: center; }
+  .gja__more-eyebrow { justify-content: center; }
+  .gja__benefit + .gja__benefit::before, .gja__benefit--first::before { display: none; }
+
+  .gjf__grid { grid-template-columns: 1fr 1fr; gap: 30px 18px; }
+  .gjf__brandcol { grid-column: 1 / -1; }
+  .gjf__contact { grid-column: 1 / -1; border-left: 0; padding-left: 0; }
+  .gjf__name { white-space: normal; }
+  .gjf__row { flex-direction: column; align-items: center; text-align: center; }
+}
+
+/* ------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .js :is(.gja, .gjf) [data-rv],
+  .js .gja .gja__scene > picture { transition: opacity 0.6s ease !important; transform: none !important; }
+  .gja__store-btn:hover { transform: none; }
+}

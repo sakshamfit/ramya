@@ -1,0 +1,349 @@
+/* ==========================================================================
+   Geetha Jewellers — SECTION 10 · Visit Our Store  (Phase-02, keyframe 10)
+   --------------------------------------------------------------------------
+   The physical store is the hero: the real supplied storefront (gold-framed
+   plate, map pin on its corner) enters with a soft fade + controlled scale
+   from depth and settles upward; the dark-marble information panel reveals
+   in coordination (address / call / WhatsApp / hours), the GET DIRECTIONS
+   CTA settles last, and the margin annotations (script signature, legacy
+   line, virtual-tour control) breathe in around it. One [data-section]
+   band, transforms/opacity only, graceful in reverse.
+   ========================================================================== */
+
+.gjv {
+  --gjv-gold: #a9853c;
+  --gjv-ink: #4a4438;
+  position: relative;
+  background: #f6f0e4;
+  font-family: "Jost", "Segoe UI", system-ui, sans-serif;
+}
+
+.gjv::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 64px;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(to bottom, #f6f0e4, rgba(246, 240, 228, 0));
+}
+
+.gjv__band {
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
+  background: linear-gradient(180deg, #fdfaf2 0%, #faf4e8 55%, #f1e6d5 100%);
+}
+
+@media (min-width: 1024px) {
+  .gjv__band { aspect-ratio: 1536 / 864; }
+}
+
+/* ------------------------------------------------------------ decorations */
+.gjv__orn, .gjv__fol { position: absolute; pointer-events: none; }
+.gjv__orn img, .gjv__fol img { width: 100%; height: auto; display: block; }
+
+.gjv__orn--l { left: 0; top: 31.6%; width: 9.6%; }
+.gjv__orn--r { left: 85.5%; top: 24.4%; width: 5.7%; }
+.gjv__fol--l { left: 0; bottom: 0; width: 22.7%; }
+.gjv__fol--r { right: 0; bottom: 0; width: 14.2%; }
+
+.gjv__orn { opacity: 0.92; transition: opacity 1.4s ease 0.35s; }
+.gjv__fol { transition: opacity 1.4s ease 0.5s; }
+.js .gjv:not(.is-in) .gjv__orn, .js .gjv:not(.is-in) .gjv__fol { opacity: 0; }
+
+/* ----------------------------------------------------------------- header */
+.gjv__head {
+  position: absolute;
+  left: 50%;
+  top: 1.2%;
+  transform: translateX(-50%);
+  width: 60%;
+  text-align: center;
+  z-index: 3;
+}
+
+.gjv__lotus { margin: 0 0 0.35cqw; font-size: 1.5cqw; color: var(--gjv-gold); line-height: 1; }
+
+.gjv__kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2cqw;
+  margin: 0 0 0.55cqw;
+  font-size: 1.18cqw;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: #8a6f3a;
+}
+
+.gjv__kicker::before, .gjv__kicker::after { content: ""; width: 3.4cqw; height: 1px; background: rgba(169, 133, 60, 0.6); }
+
+.gjv__h2 {
+  margin: 0 0 0.55cqw;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 700;
+  font-size: 4cqw;
+  line-height: 1.05;
+  background: linear-gradient(165deg, #c09a48 15%, #9d7a30 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gjv__sub { margin: 0; font-size: 1.42cqw; color: #6f6046; }
+
+.gjv__sub::after {
+  content: "\2014\2009\25c8\2009\2014";
+  display: block;
+  margin-top: 0.7cqw;
+  font-size: 0.9cqw;
+  color: rgba(169, 133, 60, 0.7);
+}
+
+/* ------------------------------------------------------------- storefront */
+.gjv__store {
+  position: absolute;
+  margin: 0;
+  z-index: 2;
+  will-change: transform;
+}
+
+.gjv__store picture { display: block; transition: opacity 1.3s ease 0.25s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s; transform-origin: 50% 82%; }
+
+.gjv__store img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 26px 40px rgba(95, 66, 20, 0.28));
+}
+
+.js .gjv:not(.is-in) .gjv__store picture { opacity: 0; transform: scale(0.93) translateY(3.5%); }
+
+/* ------------------------------------------------------------- info panel */
+.gjv__panel {
+  position: absolute;
+  left: 9.64%;
+  top: 22.2%;
+  width: 29.4%;
+  height: 69.2%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 2.2cqw 2.4cqw 2cqw;
+  border-radius: 1.9cqw;
+  color: #ece5d6;
+  background:
+    radial-gradient(130% 90% at 88% 6%, rgba(255, 255, 255, 0.07), transparent 42%),
+    linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.045) 44%, transparent 49%, transparent 58%, rgba(255, 255, 255, 0.03) 62%, transparent 67%),
+    linear-gradient(to bottom, #221d16, #15110c);
+  border: 1px solid rgba(212, 175, 90, 0.16);
+  box-shadow: 0 26px 54px rgba(70, 48, 14, 0.3);
+}
+
+.gjv__brand {
+  display: flex;
+  align-items: center;
+  gap: 1.1cqw;
+  margin: 0 0 1.7cqw;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 700;
+  font-size: 2.45cqw;
+  color: #d4af5a;
+}
+
+.gjv__brand svg { width: 2.5cqw; height: 2.5cqw; stroke: #d4af5a; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.gjv__rows { list-style: none; margin: 0; padding: 0 0 0 0.3cqw; display: grid; gap: 1.35cqw; }
+
+.gjv__rows li { display: flex; align-items: flex-start; gap: 1.3cqw; }
+
+.gjv__rows i {
+  flex: 0 0 3.3cqw;
+  height: 3.3cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 30%, #bf984e, #8d6d2b);
+  display: grid;
+  place-items: center;
+  margin-top: 0.2cqw;
+}
+
+.gjv__rows i svg { width: 46%; height: 46%; stroke: #241d10; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.gjv__rows b {
+  display: block;
+  margin: 0 0 0.35cqw;
+  font-size: 0.98cqw;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #cfa24d;
+}
+
+.gjv__rows span { display: block; font-size: 1.18cqw; line-height: 1.55; color: #ece5d6; }
+.gjv__rows a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+.gjv__rows a:hover, .gjv__rows a:focus-visible { color: #d4af5a; }
+
+.gjv__dir { margin: auto 0 0; padding-top: 1.4cqw; }
+
+.gjv__dirbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1cqw;
+  margin: 0 0.6cqw;
+  padding: 1.15cqw 1.5cqw;
+  border-radius: 999px;
+  background: linear-gradient(100deg, #d9b563, #b28d3d 60%, #caa452);
+  color: #33270f;
+  text-decoration: none;
+  font-size: 1.24cqw;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  transition: filter 0.35s ease, box-shadow 0.35s ease;
+}
+
+.gjv__dirbtn span { font-size: 1.25em; transition: transform 0.35s ease; }
+.gjv__dirbtn:hover, .gjv__dirbtn:focus-visible { filter: brightness(1.07); box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45); }
+.gjv__dirbtn:hover span { transform: translateX(4px); }
+
+/* ------------------------------------------------------- margin annotations */
+.gjv__side { position: absolute; left: 86.4%; top: 0; width: 12.4%; height: 100%; z-index: 3; }
+
+.gjv__script {
+  position: absolute;
+  top: 19%;
+  left: 0;
+  margin: 0;
+  font-family: "Great Vibes", "Cormorant Garamond", cursive;
+  font-size: 2.05cqw;
+  color: var(--gjv-gold);
+  white-space: nowrap;
+}
+
+.gjv__script::after { content: ""; display: block; width: 7.6cqw; height: 1px; margin-top: 0.5cqw; background: rgba(169, 133, 60, 0.55); }
+
+.gjv__legacy {
+  position: absolute;
+  top: 45.6%;
+  left: 0.4%;
+  margin: 0;
+  font-size: 1.04cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 2.15;
+  color: var(--gjv-ink);
+}
+
+.gjv__legacy::after { content: ""; display: block; width: 5.8cqw; height: 1px; margin-top: 1cqw; background: rgba(169, 133, 60, 0.65); }
+
+.gjv__tour { position: absolute; top: 71.8%; left: 0; margin: 0; }
+
+.gjv__tour a { display: flex; align-items: center; gap: 1.1cqw; text-decoration: none; }
+
+.gjv__tour i {
+  flex: 0 0 4.3cqw;
+  height: 4.3cqw;
+  border-radius: 50%;
+  border: 1.5px solid rgba(169, 133, 60, 0.8);
+  background: #fffdf6;
+  display: grid;
+  place-items: center;
+  transition: background 0.35s ease;
+}
+
+.gjv__tour svg { width: 34%; height: 34%; fill: #2b2416; transition: fill 0.35s ease; margin-left: 8%; }
+
+.gjv__tour span {
+  white-space: nowrap;
+  font-size: 0.92cqw;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.85;
+  color: var(--gjv-ink);
+}
+
+.gjv__tour span::after { content: ""; display: block; width: 6cqw; height: 1px; margin-top: 0.55cqw; background: rgba(169, 133, 60, 0.55); }
+
+.gjv__tour a:hover i, .gjv__tour a:focus-visible i { background: var(--gjv-gold); }
+.gjv__tour a:hover svg, .gjv__tour a:focus-visible svg { fill: #fffdf6; }
+
+/* ------------------------------------------------------------ reveal system */
+.js .gjv [data-rv] {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.85s ease var(--d, 0s), transform 1s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+}
+
+.js .gjv:not(.is-in) [data-rv] { opacity: 0; transform: translateY(16px); }
+.js .gjv:not(.is-in) .gjv__panel[data-rv] { transform: translateX(-18px); }
+
+/* --------------------------------------------------------------- compact */
+@media (max-width: 1023px) {
+  .gjv__band { padding-bottom: 40px; }
+  .gjv__orn, .gjv__fol { display: none; }
+
+  .gjv__head {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: auto;
+    padding: 50px clamp(20px, 6vw, 56px) 6px;
+  }
+
+  .gjv__lotus { font-size: 20px; margin-bottom: 8px; }
+  .gjv__kicker { font-size: 11px; gap: 12px; margin-bottom: 10px; }
+  .gjv__kicker::before, .gjv__kicker::after { width: 34px; }
+  .gjv__h2 { font-size: clamp(32px, 8.6vw, 46px); margin-bottom: 8px; }
+  .gjv__sub { font-size: clamp(13.5px, 3.7vw, 16px); }
+  .gjv__sub::after { font-size: 10px; margin-top: 8px; }
+
+  .gjv__store { position: relative; margin: 22px 3vw 0; width: auto !important; left: auto !important; top: auto !important; }
+
+  .gjv__panel {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    margin: 24px clamp(18px, 5vw, 48px) 0;
+    padding: 26px 24px 24px;
+    border-radius: 18px;
+  }
+
+  .gjv__brand { font-size: 24px; gap: 10px; margin-bottom: 18px; }
+  .gjv__brand svg { width: 24px; height: 24px; }
+  .gjv__rows { gap: 16px; }
+  .gjv__rows i { flex-basis: 38px; height: 38px; }
+  .gjv__rows b { font-size: 10.5px; margin-bottom: 4px; }
+  .gjv__rows span { font-size: 14.5px; }
+  .gjv__dir { padding-top: 20px; }
+  .gjv__dirbtn { padding: 13px 18px; font-size: 12px; margin: 0; }
+
+  .gjv__side { position: relative; left: auto; width: auto; height: auto; padding: 28px clamp(20px, 6vw, 56px) 0; display: grid; gap: 22px; justify-items: center; text-align: center; }
+  .gjv__script { position: static; font-size: 26px; }
+  .gjv__script::after { width: 90px; margin: 6px auto 0; }
+  .gjv__legacy { position: static; font-size: 11.5px; line-height: 2; }
+  .gjv__legacy::after { width: 64px; margin: 8px auto 0; }
+  .gjv__tour { position: static; }
+  .gjv__tour a { justify-content: center; gap: 12px; }
+  .gjv__tour i { flex-basis: 46px; height: 46px; }
+  .gjv__tour span { font-size: 11px; line-height: 1.8; text-align: left; }
+  .gjv__tour span::after { width: 64px; }
+}
+
+/* ------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .js .gjv [data-rv],
+  .js .gjv .gjv__store picture { transition: opacity 0.6s ease !important; transform: none !important; }
+  .gjv__orn, .gjv__fol { transition: none; }
+}
