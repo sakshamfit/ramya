@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Geetha Jewellers — collection stage
+   Ramya Jewellers — collection stage
    --------------------------------------------------------------------------
    Vertical scroll → horizontal cinematic movement of five physical displays.
 

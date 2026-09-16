@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - SECTION 05 (Earrings) asset build
+Ramya Jewellers - SECTION 05 (Earrings) asset build
 ----------------------------------------------------
     python tools/build_earrings_assets.py
 
@@ -61,7 +61,7 @@ TEXT_OVERLAYS = [                     # deviation-matte inpaint (strokes only)
     (1240, 52, 1505, 580),            # right featured column incl. spec tiles
     (1395, 620, 1505, 665),           # drag-to-rotate text + arrows
     (570, 770, 970, 845),             # italic quote + ornament on the silk
-    (1315, 782, 1505, 835),           # geetha jewellers / since 1998 mark
+    (1315, 782, 1505, 835),           # ramya jewellers / since 1998 mark
     (322, 152, 378, 198),             # stray glyph fragment left of panel 1
 ]
 BADGE_BOX = (1296, 606, 1396, 692)    # the 360-degree gold badge (solid disc)

@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - SECTION 04 (Silver Rings) asset build
+Ramya Jewellers - SECTION 04 (Silver Rings) asset build
 --------------------------------------------------------
     python tools/build_silver_assets.py
 

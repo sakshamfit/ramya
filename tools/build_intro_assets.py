@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - PHASE 01 (Cinematic Intro) assets
+Ramya Jewellers - PHASE 01 (Cinematic Intro) assets
 ----------------------------------------------------
     python tools/build_intro_assets.py
 

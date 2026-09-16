@@ -1,4 +1,4 @@
-# Geetha Jewellers — collection stage
+# Ramya Jewellers — collection stage
 
 **Phase 01 · Cinematic Intro** (overlay `#gjintro`, css/intro.css,
 js/intro.js, tools/build_intro_assets.py) — APPROVED. The
@@ -6,7 +6,7 @@ js/intro.js, tools/build_intro_assets.py) — APPROVED. The
 point blooms → keyframe A (shipped untouched — the supplied composition IS
 the reference) approaches out of darkness while a light veil holds its
 centre and a shadow rests on the wordmark band → the veil contracts and
-light reveals the embossed GJS emblem, then GEETHA JEWELLERS / SINCE 1998
+light reveals the embossed GJS emblem, then RAMYA JEWELLERS / SINCE 1998
 → a metallic sweep crosses → a keyframe-B bloom pulse hands off to the
 live lockup (the polished coin cut from keyframe B + Cinzel gold live
 type) in the keyframe-C colonnade → the lockup shrinks and travels (FLIP
@@ -183,7 +183,7 @@ Tunables live in `:root` of `stage.css` (`--gj-travel`, `--gj-hero-h`,
 ## Phase 02 — post-hero sections (spec docx)
 
 Sections are built one at a time from
-`Geetha_Jewellers_Master_Creative_Animation_Specification_Phase_02.docx`
+`Ramya_Jewellers_Master_Creative_Animation_Specification_Phase_02.docx`
 (reference keyframes embedded in the docx), each awaiting approval before the
 next. Shared plumbing: `js/sections.js` — one reusable controller for every
 post-hero section (`data-section` + `data-reveal="left|right|up|fade"` with
@@ -329,7 +329,7 @@ labels then support lines trailing each chip), the column separators draw
 top-down in sequence and the ◈ divider strokes extend left→right to close.
 D — consultation band over the showroom plate: copy stagger, pill CTAs
 (Book an Appointment / Chat on WhatsApp), three mini-services, and the
-engraved GEETHA JEWELLERS — A LEGACY OF BRILLIANCE panel text as live type
+engraved RAMYA JEWELLERS — A LEGACY OF BRILLIANCE panel text as live type
 riding the plate parallax. Mobile recomposes: copy blocks flow, dedicated
 plate crops for the visuals (engraving/badge/brand overlays kept aligned
 via their own container-query frames), cards single-column, trust grid

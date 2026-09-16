@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Geetha Jewellers — PHASE 01 · intro conductor
+   Ramya Jewellers — PHASE 01 · intro conductor
    --------------------------------------------------------------------------
    The film itself is pure CSS (css/intro.css). This file only: waits for the
    first plate to decode (so nothing pops in half-loaded), starts the

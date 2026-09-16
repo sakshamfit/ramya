@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - SECTION 09 (Offer / Testimonials / Why Choose Us) assets
+Ramya Jewellers - SECTION 09 (Offer / Testimonials / Why Choose Us) assets
 ---------------------------------------------------------------------------
     python tools/build_offer_assets.py
 

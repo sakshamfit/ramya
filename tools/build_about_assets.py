@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - SECTION 01 (Our Story / About) asset build
+Ramya Jewellers - SECTION 01 (Our Story / About) asset build
 -------------------------------------------------------------
     python tools/build_about_assets.py
 
@@ -36,7 +36,7 @@ DEFAULT_SRC = (r"C:/Users/giris/AppData/Local/Temp/claude/C--Users-giris-OneDriv
 # boxes in source coordinates (1536 x 513)
 SCENE_CROP = (0, 0, 1015, 513)
 SCENE_OVERLAYS = [
-    (88, 26, 415, 302),     # TIMELESS CRAFTSMANSHIP / GEETHA JEWELLERS / SINCE 1998 / italic line
+    (88, 26, 415, 302),     # TIMELESS CRAFTSMANSHIP / RAMYA JEWELLERS / SINCE 1998 / italic line
     (20, 330, 198, 487),    # SCROLL TO EXPLORE cue (line, circle, text)
     (632, 200, 734, 246),   # EXPLORE THE CRAFT label
     (636, 242, 852, 322),   # hotspot circle, connector lines, faint scribble

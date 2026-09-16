@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - SECTION 08 (Silver Bangles) asset build
+Ramya Jewellers - SECTION 08 (Silver Bangles) asset build
 ----------------------------------------------------------
     python tools/build_silverbangles_assets.py
 

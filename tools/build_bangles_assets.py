@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - SECTIONS 06/07 (Gold Bangles) asset build
+Ramya Jewellers - SECTIONS 06/07 (Gold Bangles) asset build
 ------------------------------------------------------------
     python tools/build_bangles_assets.py
 

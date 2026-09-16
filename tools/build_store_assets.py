@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - SECTION 10 (Visit Our Store) assets
+Ramya Jewellers - SECTION 10 (Visit Our Store) assets
 ------------------------------------------------------
     python tools/build_store_assets.py
 

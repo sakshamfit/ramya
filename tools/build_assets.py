@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - collection stage asset build (separate display assets)
+Ramya Jewellers - collection stage asset build (separate display assets)
 ------------------------------------------------------------------------
     python tools/build_assets.py
 

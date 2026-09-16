@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - SECTION 03 (Gold Rings) asset build
+Ramya Jewellers - SECTION 03 (Gold Rings) asset build
 ------------------------------------------------------
     python tools/build_rings_assets.py
 

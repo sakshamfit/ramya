@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - SECTION 11 (App Download + Footer) assets
+Ramya Jewellers - SECTION 11 (App Download + Footer) assets
 ------------------------------------------------------------
     python tools/build_app_assets.py
 

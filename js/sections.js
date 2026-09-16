@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Geetha Jewellers — Phase-02 section animation controller (reusable)
+   Ramya Jewellers — Phase-02 section animation controller (reusable)
    --------------------------------------------------------------------------
    One controller for every post-hero section instead of per-element listeners
    (spec §16). A section opts in with `data-section`; its children describe

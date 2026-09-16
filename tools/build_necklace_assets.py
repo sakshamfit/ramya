@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - SECTION 02 (Signature Gold Necklace) asset build
+Ramya Jewellers - SECTION 02 (Signature Gold Necklace) asset build
 -------------------------------------------------------------------
     python tools/build_necklace_assets.py
 

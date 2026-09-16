@@ -1,5 +1,5 @@
 """
-Geetha Jewellers - HD pass: 2x super-resolution of every site image
+Ramya Jewellers - HD pass: 2x super-resolution of every site image
 -------------------------------------------------------------------
     python tools/hd_upscale.py
 
