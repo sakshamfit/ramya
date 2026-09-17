@@ -1,0 +1,596 @@
+/* ==========================================================================
+   Ramya Jewellers — SECTION 01 · Our Story / About   (Phase-02, keyframe 01)
+   --------------------------------------------------------------------------
+   Left: the reference jewellery composition (cleaned photographic asset) with
+   the brand lockup, scroll cue and "Explore the craft" hotspot rebuilt as real
+   HTML. Right: ivory-marble panel (florals kept) with live editorial content.
+   Choreography per spec: scene enters from the LEFT, copy reveals RIGHT→LEFT
+   slightly delayed, value boxes rise BOTTOM→TOP one-by-one, CTA last; gentle
+   parallax on the scene; graceful reverse on scroll-back; reduced-motion fade.
+   ========================================================================== */
+
+.gj-about {
+  --ab-gold: #a9853c;
+  --ab-gold-deep: #8a6420;
+  --ab-brown: #5a431d;
+  --ab-body: #6c5a41;
+  --ab-ink: #3c2d15;
+  --ab-ivory: #f6f0e3;
+  position: relative;
+  z-index: 5;
+  /* rises over the pinned hero stage during its curtain hold (see stage.css) */
+  margin-top: -100vh;
+  margin-top: -100svh;
+  background: var(--ab-ivory);
+  box-shadow: 0 -30px 70px rgba(60, 40, 12, 0.24);
+  font-family: "Jost", "Segoe UI", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* soft bridge from the collection stage above — no hard seam */
+.gj-about::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 58px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, #f4eee4, rgba(244, 238, 228, 0));
+}
+
+.gj-about__inner {
+  position: relative;
+  height: clamp(584px, 36vw, 94svh);
+}
+
+/* --------------------------------------------------------------- left scene */
+.gj-about__scene {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 66%;
+  margin: 0;
+  z-index: 1;
+  -webkit-mask-image: linear-gradient(to right, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 86%, transparent 100%);
+}
+
+.gj-about__scene-par {
+  position: absolute;
+  inset: -18px 0;
+  will-change: transform;
+}
+
+.gj-about__scene-par img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% 50%;
+  display: block;
+}
+
+/* brand lockup (real text, per spec §10) ---------------------------------- */
+.gj-about__lockup {
+  position: absolute;
+  left: 6.5%;
+  top: 7%;
+  width: 36%;
+  margin: 0;
+  text-align: center;
+  z-index: 2;
+}
+
+.gj-about__kicker {
+  margin: 0 0 1.1vw;
+  font-size: clamp(9px, 0.8vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  text-transform: uppercase;
+  color: #6d5426;
+}
+
+.gj-about__wordmark {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(26px, 3.3vw, 54px);
+  line-height: 1.06;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: linear-gradient(97deg, #8a6420 8%, #c9a24b 34%, #f0dda6 50%, #c09040 66%, #8a6420 94%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px 1px rgba(255, 250, 235, 0.6));
+}
+
+.gj-about__since {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7vw;
+  margin: 1.1vw 0 0;
+  color: #7a5c2a;
+  font-size: clamp(9px, 0.82vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.gj-about__since i {
+  position: relative;
+  flex: 0 0 clamp(30px, 4vw, 66px);
+  height: 1px;
+  background: linear-gradient(to right, rgba(154, 118, 48, 0.15), rgba(154, 118, 48, 0.85));
+}
+
+.gj-about__since i:last-child {
+  background: linear-gradient(to left, rgba(154, 118, 48, 0.15), rgba(154, 118, 48, 0.85));
+}
+
+.gj-about__since i::before {
+  content: "";
+  position: absolute;
+  top: -2.5px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid #9a7630;
+  transform: rotate(45deg);
+}
+
+.gj-about__since i:first-child::before { left: -4px; }
+.gj-about__since i:last-child::before { right: -4px; }
+
+.gj-about__tag {
+  margin: 1.5vw 0 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(15px, 1.45vw, 24px);
+  line-height: 1.35;
+  color: #4c3a24;
+}
+
+/* scroll cue -------------------------------------------------------------- */
+.gj-about__cue {
+  position: absolute;
+  left: 3%;
+  bottom: 7%;
+  z-index: 2;
+  color: #fdf9f0;
+}
+
+.gj-about__cue-line {
+  position: absolute;
+  left: 14px;
+  bottom: 44px;
+  width: 1px;
+  height: clamp(54px, 6.2vw, 92px);
+  overflow: hidden;
+  background: rgba(253, 249, 240, 0.35);
+}
+
+.gj-about__cue-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 45%;
+  background: rgba(253, 249, 240, 0.95);
+  animation: gj-about-drip 2s ease-in-out infinite;
+}
+
+@keyframes gj-about-drip {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(240%); }
+}
+
+.gj-about__cue-ring {
+  position: absolute;
+  left: 0;
+  bottom: 12px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(253, 249, 240, 0.85);
+  border-radius: 50%;
+}
+
+.gj-about__cue-ring::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: #fdf9f0;
+}
+
+.gj-about__cue-text {
+  display: block;
+  margin-left: 44px;
+  font-size: clamp(8px, 0.68vw, 11px);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  line-height: 2;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(60, 30, 15, 0.55);
+}
+
+/* "explore the craft" annotation ------------------------------------------ */
+.gj-about__annot {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  color: #fdf9f0;
+}
+
+.gj-about__annot-label {
+  position: absolute;
+  left: 63%;
+  top: 38.5%;
+  font-size: clamp(9px, 0.76vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  line-height: 1.9;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(70, 40, 15, 0.5);
+}
+
+.gj-about__annot-v {
+  position: absolute;
+  left: 64.3%;
+  top: 48.5%;
+  height: 9.5%;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(253, 249, 240, 0.75), rgba(253, 249, 240, 0.25));
+}
+
+.gj-about__annot-h {
+  position: absolute;
+  left: 66.2%;
+  top: 58%;
+  width: 16.5%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(253, 249, 240, 0.75), rgba(253, 249, 240, 0));
+}
+
+.gj-about__annot-plus {
+  position: absolute;
+  left: 64.3%;
+  top: 58%;
+  width: clamp(24px, 2vw, 32px);
+  height: clamp(24px, 2vw, 32px);
+  transform: translate(-50%, -50%);
+  border: 1.5px solid rgba(253, 249, 240, 0.9);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: clamp(13px, 1.05vw, 17px);
+  font-weight: 300;
+  line-height: 1;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.gj-about__annot-plus:hover {
+  transform: translate(-50%, -50%) scale(1.14);
+  box-shadow: 0 0 18px rgba(255, 240, 200, 0.55);
+}
+
+/* ------------------------------------------------------------- right panel */
+.gj-about__panel {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 40%;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(to left, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to left, #000 82%, transparent 100%);
+}
+
+.gj-about__panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gj-about__content {
+  position: absolute;
+  top: 50%;
+  right: 1.6vw;
+  transform: translateY(-50%);
+  width: 33.8vw;
+  z-index: 3;
+}
+
+.gj-about__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  margin: 0 0 0.9vw;
+  color: var(--ab-gold);
+  font-size: clamp(10px, 0.85vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-indent: 0.1em;
+  text-transform: uppercase;
+}
+
+.gj-about__eyebrow i {
+  position: relative;
+  width: clamp(36px, 4.6vw, 76px);
+  height: 1px;
+  background: rgba(169, 133, 60, 0.75);
+}
+
+.gj-about__eyebrow i::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -2px;
+  border-left: 5px solid rgba(169, 133, 60, 0.9);
+  border-top: 2.5px solid transparent;
+  border-bottom: 2.5px solid transparent;
+}
+
+.gj-about__title {
+  margin: 0 0 1.35vw;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(28px, 3.05vw, 52px);
+  line-height: 1.08;
+  color: var(--ab-brown);
+  white-space: nowrap;
+}
+
+.gj-about__title i {
+  display: inline-block;
+  width: clamp(24px, 3vw, 50px);
+  height: 1px;
+  margin: 0 0 0.9vw 1.1vw;
+  vertical-align: middle;
+  background: rgba(169, 133, 60, 0.7);
+}
+
+.gj-about__copy {
+  margin: 0 0 1vw;
+  font-weight: 400;
+  font-size: clamp(12.5px, 1vw, 17px);
+  line-height: 1.55;
+  color: var(--ab-body);
+}
+
+/* value cards ------------------------------------------------------------- */
+.gj-about__values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 1.5vw, 26px);
+  margin: 1.35vw 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gj-about__values li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(13px, 1.35vw, 24px) clamp(8px, 0.9vw, 16px) clamp(14px, 1.45vw, 26px);
+  text-align: center;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #fcf8ef, #f7efe0);
+  border: 1px solid rgba(197, 164, 90, 0.4);
+  box-shadow: 0 10px 26px rgba(150, 110, 50, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.gj-about__values li:hover {
+  transform: translateY(-4px);
+  border-color: rgba(197, 164, 90, 0.75);
+  box-shadow: 0 16px 32px rgba(150, 110, 50, 0.13);
+}
+
+.gj-about__values li.is-lead {
+  border-color: rgba(190, 150, 70, 0.85);
+  box-shadow: 0 0 0 1px rgba(214, 180, 105, 0.35), 0 12px 30px rgba(150, 110, 50, 0.12);
+}
+
+.gj-about__values svg {
+  width: clamp(26px, 2.3vw, 40px);
+  height: clamp(26px, 2.3vw, 40px);
+  stroke: #a8823f;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.gj-about__values h3 {
+  margin: 0.7vw 0 0.35vw;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(15px, 1.32vw, 22px);
+  color: var(--ab-ink);
+}
+
+.gj-about__values p {
+  margin: 0;
+  font-size: clamp(10.5px, 0.82vw, 13.5px);
+  line-height: 1.45;
+  color: #7c6a4e;
+}
+
+.gj-about__values .is-lead p { color: var(--ab-gold); }
+
+.gj-about__chip {
+  margin-top: clamp(10px, 1.05vw, 18px);
+  width: clamp(24px, 2.1vw, 34px);
+  height: clamp(24px, 2.1vw, 34px);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fffdf7;
+  border: 1px solid rgba(197, 164, 90, 0.45);
+  box-shadow: 0 4px 10px rgba(150, 110, 50, 0.14);
+  color: var(--ab-gold);
+  font-size: clamp(11px, 0.9vw, 15px);
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+.gj-about__values li:hover .gj-about__chip {
+  background: var(--ab-gold);
+  color: #fffdf7;
+}
+
+/* CTA --------------------------------------------------------------------- */
+.gj-about__cta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.1vw;
+  margin: 1.45vw 0 0;
+}
+
+.gj-about__cta i {
+  width: clamp(60px, 9vw, 150px);
+  height: 1px;
+  background: linear-gradient(to right, rgba(169, 133, 60, 0), rgba(169, 133, 60, 0.65));
+}
+
+.gj-about__cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7vw;
+  color: #9a7b34;
+  text-decoration: none;
+  font-size: clamp(10px, 0.82vw, 13.5px);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-indent: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.gj-about__cta a:hover,
+.gj-about__cta a:focus-visible { color: #7a5c1e; }
+
+.gj-about__cta a span {
+  font-size: 1.25em;
+  transition: transform 0.35s ease;
+}
+
+.gj-about__cta a:hover span { transform: translateX(5px); }
+
+/* ---------------------------------------------------------------- reveals */
+.js .gj-about [data-reveal] {
+  opacity: 0;
+  transition: opacity 0.85s ease, transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+
+.js .gj-about [data-reveal="left"] { transform: translateX(-46px); }
+.js .gj-about [data-reveal="right"] { transform: translateX(42px); }
+.js .gj-about [data-reveal="up"] { transform: translateY(26px); }
+
+/* the value boxes: Tradition arrives from the left, Purity from the right */
+.js .gj-about__values li[data-reveal="left"] { transform: translateX(-64px); }
+.js .gj-about__values li[data-reveal="right"] { transform: translateX(64px); }
+
+/* the sequence starts once the section has SETTLED into the viewport
+   (.is-settled from js/sections.js), not while it is still rising */
+.js .gj-about.is-settled [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --------------------------------------------------------------- compact */
+@media (max-width: 1023px) {
+  .gj-about__inner { height: auto; }
+
+  .gj-about__scene {
+    position: relative;
+    width: 100%;
+    height: clamp(360px, 56svh, 560px);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .gj-about__scene-par { inset: 0; }
+  .gj-about__scene-par img { object-position: 50% 50%; }
+
+  .gj-about__lockup { left: 8%; right: 8%; top: 8%; width: auto; }
+  .gj-about__wordmark { font-size: clamp(30px, 8.4vw, 46px); }
+  .gj-about__kicker { font-size: 10px; margin-bottom: 10px; }
+  .gj-about__since { font-size: 10px; gap: 10px; margin-top: 12px; }
+  .gj-about__since i { flex-basis: 44px; }
+  .gj-about__tag {
+    font-size: clamp(16px, 4.6vw, 21px);
+    margin-top: 14px;
+    color: #fdf5e6;
+    text-shadow: 0 1px 14px rgba(75, 40, 15, 0.65), 0 0 4px rgba(75, 40, 15, 0.4);
+  }
+  .gj-about__wordmark { filter: drop-shadow(0 1px 10px rgba(255, 250, 235, 0.8)); }
+
+  .gj-about__cue,
+  .gj-about__annot { display: none; }
+
+  .gj-about__panel {
+    position: absolute;
+    inset: auto 0 0 0;
+    width: 100%;
+    height: calc(100% - clamp(360px, 56svh, 560px));
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 70px);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 70px);
+  }
+
+  .gj-about__content {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    width: auto;
+    padding: 44px clamp(20px, 6vw, 56px) 56px;
+  }
+
+  .gj-about__eyebrow { gap: 12px; margin-bottom: 10px; font-size: 11px; }
+  .gj-about__eyebrow i { width: 52px; }
+  .gj-about__title { font-size: clamp(30px, 7.4vw, 44px); margin-bottom: 14px; white-space: normal; }
+  .gj-about__title i { width: 34px; margin: 0 0 10px 12px; }
+  .gj-about__copy { font-size: clamp(14px, 3.8vw, 16px); margin-bottom: 12px; }
+
+  .gj-about__values { gap: 14px; margin-top: 20px; }
+  .gj-about__values h3 { font-size: 18px; margin: 10px 0 5px; }
+  .gj-about__values p { font-size: 12px; }
+  .gj-about__values svg { width: 30px; height: 30px; }
+  .gj-about__chip { width: 30px; height: 30px; margin-top: 14px; font-size: 13px; }
+
+  .gj-about__cta { gap: 14px; margin-top: 26px; }
+  .gj-about__cta i { width: 70px; }
+  .gj-about__cta a { font-size: 11px; gap: 8px; }
+}
+
+@media (max-width: 639px) {
+  .gj-about__values { grid-template-columns: 1fr; max-width: 340px; margin-left: auto; margin-right: auto; }
+  .gj-about__values li { padding: 20px 16px 22px; }
+}
+
+/* ------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .js .gj-about [data-reveal] {
+    transform: none !important;
+    transition: opacity 0.6s ease;
+  }
+
+  .gj-about__cue-line::after { animation: none; transform: translateY(60%); }
+  .gj-about__scene-par { transform: none !important; }
+}

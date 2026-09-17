@@ -1,0 +1,631 @@
+/* ==========================================================================
+   Ramya Jewellers — SECTION 02 · Signature Gold Necklace  (Phase-02, KF 02)
+   --------------------------------------------------------------------------
+   A pinned scroll-reveal: the environment + left editorial establish first,
+   then the necklace emerges from CENTRE/BACK toward the viewer, driven
+   continuously by scroll (--pn). A single controlled light sweep plays as it
+   completes; the specifications reveal in coordination; the four detail cards
+   flash in BOTTOM→TOP. The stage releases naturally after the settle.
+
+   The bg + necklace live inside a fixed 16:9 ".gjn-scene" sized to cover the
+   stage, so the necklace stays glued to its podium at every viewport aspect.
+   ========================================================================== */
+
+.gjn {
+  --gjn-gold: #a9853c;
+  --gjn-brown: #6b4d1e;
+  --gjn-ink: #4a3a22;
+  --gjn-body: #7a6a52;
+  --gjn-ivory: #f6efe2;
+  --gjn-travel: 165vh;
+  position: relative;
+  background: var(--gjn-ivory);
+  font-family: "Jost", "Segoe UI", system-ui, sans-serif;
+}
+
+.gjn__track {
+  position: relative;
+  height: calc(100vh + var(--gjn-travel));
+  height: calc(100svh + var(--gjn-travel));
+}
+
+.gjn__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--gjn-ivory);
+}
+
+/* soft seam from the About section above */
+.gjn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 64px;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(to bottom, #f6f0e3, rgba(246, 240, 227, 0));
+}
+
+/* ------------------------------------------------- fixed-aspect scene layer */
+.gjn__view {
+  position: absolute;
+  inset: 0;
+}
+
+.gjn__scene {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100vw, 177.78svh);      /* covers the stage at 1536:864 */
+  aspect-ratio: 1536 / 864;
+}
+
+.gjn__scene > picture img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* necklace — emerges from centre/back, placement glued to the podium -------- */
+.gjn__neck {
+  position: absolute;
+  left: 49.93%;
+  top: 5.79%;
+  width: 26.82%;
+  z-index: 2;
+}
+
+.gjn__neck-move {
+  transform: translate3d(-50%, calc((1 - var(--pn, 0)) * -9%), 0)
+             scale(calc(0.5 + 0.5 * var(--pn, 0)));
+  transform-origin: 50% 14%;
+  /* fully opaque and sharp from its first frame - the emergence is scale +
+     travel only (never a faint ghost that reads as blur) */
+  opacity: 1;
+  transition: transform 0.18s cubic-bezier(0.25, 0.6, 0.3, 1);
+  will-change: transform;
+}
+
+.gjn__neck-breathe { position: relative; }
+
+.gjn.is-settled .gjn__neck-breathe {
+  animation: gjn-breathe 5.2s ease-in-out infinite;
+}
+
+@keyframes gjn-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.008) translateY(-0.35%); }
+}
+
+.gjn__neck img {
+  width: 100%;
+  height: auto;
+  display: block;
+  -webkit-user-drag: none;
+}
+
+/* the controlled light sweep, masked by the necklace's own alpha */
+.gjn__sweep {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  -webkit-mask-image: url("../images/gjn-necklace.webp");
+  mask-image: url("../images/gjn-necklace.webp");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.gjn__sweep i {
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: -55%;
+  width: 210%;
+  transform: translate3d(26%, 0, 0);
+  background: linear-gradient(104deg,
+    rgba(255, 236, 190, 0) 37%,
+    rgba(255, 236, 190, 0.2) 44.5%,
+    rgba(255, 244, 214, 0.62) 48.6%,
+    rgba(255, 255, 250, 0.95) 50%,
+    rgba(255, 244, 214, 0.62) 51.4%,
+    rgba(255, 236, 190, 0.2) 55.5%,
+    rgba(255, 236, 190, 0) 63%);
+  will-change: transform;
+}
+
+.gjn__neck.do-sweep .gjn__sweep { animation: gjn-sweep-fade 1.45s ease-out forwards; }
+.gjn__neck.do-sweep .gjn__sweep i { animation: gjn-sweep-move 1.45s cubic-bezier(0.35, 0, 0.25, 1) forwards; }
+.gjn__neck.do-sweep img { animation: gjn-lit 1.45s ease-out; }
+
+@keyframes gjn-sweep-move {
+  from { transform: translate3d(26%, 0, 0); }
+  to   { transform: translate3d(-26%, 0, 0); }
+}
+
+@keyframes gjn-sweep-fade {
+  0%   { opacity: 0; }
+  15%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes gjn-lit {
+  0%, 100% { filter: brightness(1); }
+  45%      { filter: brightness(1.07) saturate(1.05); }
+}
+
+/* soft contact shadow growing on the podium as the necklace arrives */
+.gjn__shadow {
+  position: absolute;
+  left: 49.7%;
+  top: 58.6%;
+  width: calc(26% * (0.4 + 0.6 * var(--pn, 0)));
+  height: 3%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(122, 84, 40, 0.4), rgba(122, 84, 40, 0) 70%);
+  opacity: calc(var(--pn, 0) * 0.75);
+  z-index: 1;
+}
+
+/* --------------------------------------------------------- editorial (left) */
+.gjn__copy {
+  position: absolute;
+  left: clamp(20px, 7.4vw, 130px);
+  top: 6.8svh;
+  width: clamp(240px, 25.5vw, 430px);
+  z-index: 3;
+}
+
+.gjn__eyebrow {
+  margin: 0 0 1vw;
+  color: var(--gjn-gold);
+  font-size: clamp(10px, 0.85vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.gjn__title {
+  margin: 0 0 1.2vw;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(30px, 3.5vw, 60px);
+  line-height: 1.04;
+  color: var(--gjn-brown);
+}
+
+.gjn__rule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 1vw;
+}
+
+.gjn__rule i {
+  flex: 0 0 clamp(70px, 9vw, 150px);
+  height: 1px;
+  background: linear-gradient(to right, rgba(169, 133, 60, 0.8), rgba(169, 133, 60, 0.15));
+}
+
+.gjn__rule::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--gjn-gold);
+  transform: rotate(45deg);
+  margin-left: -6px;
+  background: transparent;
+}
+
+.gjn__sub {
+  margin: 0 0 1.15vw;
+  color: #967a3d;
+  font-size: clamp(10px, 0.85vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.gjn__desc {
+  margin: 0 0 1.8vw;
+  font-size: clamp(12.5px, 1vw, 17px);
+  line-height: 1.6;
+  color: var(--gjn-body);
+}
+
+.gjn__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8vw;
+  padding: clamp(10px, 0.95vw, 16px) clamp(18px, 1.8vw, 30px);
+  border: 1px solid rgba(169, 133, 60, 0.75);
+  color: var(--gjn-brown);
+  background: rgba(255, 252, 244, 0.35);
+  text-decoration: none;
+  font-size: clamp(10px, 0.82vw, 13.5px);
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-indent: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+}
+
+.gjn__cta span { font-size: 1.3em; transition: transform 0.35s ease; }
+
+.gjn__cta:hover,
+.gjn__cta:focus-visible {
+  background: var(--gjn-gold);
+  border-color: var(--gjn-gold);
+  color: #fffcf4;
+}
+
+.gjn__cta:hover span { transform: translateX(5px); }
+
+/* ------------------------------------------------------ specifications (R) */
+.gjn__specs {
+  position: absolute;
+  right: clamp(18px, 5.4vw, 96px);
+  top: 6.8svh;
+  width: clamp(230px, 19.5vw, 330px);
+  z-index: 3;
+}
+
+.gjn__specs-title {
+  margin: 0 0 1.2vw;
+  color: #8a6f3a;
+  font-size: clamp(10px, 0.85vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.gjn__specs ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(10px, 1.15svh, 16px);
+}
+
+.gjn__specs li {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(10px, 0.9vw, 16px);
+}
+
+.gjn__tile {
+  flex: 0 0 clamp(38px, 3.3vw, 54px);
+  height: clamp(38px, 3.3vw, 54px);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(to bottom, #fbf6ea, #f4ecda);
+  border: 1px solid rgba(190, 154, 78, 0.45);
+  box-shadow: 0 6px 14px rgba(150, 110, 50, 0.1);
+}
+
+.gjn__tile svg {
+  width: 55%;
+  height: 55%;
+  stroke: #a8823f;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.gjn__specs h3 {
+  margin: 0 0 2px;
+  font-size: clamp(12.5px, 1vw, 16px);
+  font-weight: 500;
+  color: var(--gjn-ink);
+}
+
+.gjn__specs p {
+  margin: 0;
+  font-size: clamp(11px, 0.88vw, 14px);
+  line-height: 1.4;
+  color: #8a7758;
+}
+
+.gjn__legacy {
+  margin: clamp(12px, 1.6svh, 22px) 0 0;
+  padding-top: clamp(10px, 1.4svh, 18px);
+  border-top: 1px solid rgba(169, 133, 60, 0.5);
+  color: #8a6f3a;
+  font-size: clamp(10px, 0.8vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  line-height: 1.9;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------- scroll cue */
+.gjn__cue {
+  position: absolute;
+  left: 64.5vw;
+  top: 27svh;
+  z-index: 3;
+  color: #6b5936;
+  text-align: center;
+}
+
+.gjn__cue-text {
+  display: block;
+  font-size: clamp(9px, 0.76vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  line-height: 1.9;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.gjn__cue-line {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: clamp(56px, 9svh, 96px);
+  margin: 10px auto 0;
+  overflow: hidden;
+  background: rgba(107, 89, 54, 0.3);
+}
+
+.gjn__cue-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 45%;
+  background: rgba(107, 89, 54, 0.85);
+  animation: gjn-drip 2s ease-in-out infinite;
+}
+
+@keyframes gjn-drip {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(240%); }
+}
+
+.gjn__cue-ring {
+  display: block;
+  width: 26px;
+  height: 26px;
+  margin: 8px auto 0;
+  border: 1px solid rgba(107, 89, 54, 0.8);
+  border-radius: 50%;
+  position: relative;
+}
+
+.gjn__cue-ring::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: #6b5936;
+}
+
+/* --------------------------------------------------------- detail cards */
+.gjn__cards {
+  position: absolute;
+  left: 50%;
+  bottom: 3svh;
+  transform: translateX(-50%);
+  width: min(78vw, 1240px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 2.4vw, 40px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 3;
+}
+
+.gjn__cards figure { margin: 0; }
+
+.gjn__cards .gjn__card-img {
+  position: relative;
+  aspect-ratio: 359 / 237;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 14px 30px rgba(140, 100, 45, 0.16);
+}
+
+.gjn__cards img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gjn__cards figcaption { text-align: center; padding-top: clamp(8px, 1.3svh, 14px); }
+
+.gjn__cards h3 {
+  margin: 0 0 3px;
+  font-size: clamp(10.5px, 0.85vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gjn-ink);
+}
+
+.gjn__cards p {
+  margin: 0;
+  font-size: clamp(10px, 0.8vw, 13px);
+  line-height: 1.45;
+  color: #8a7758;
+}
+
+/* quick elegant flash-in as each card arrives */
+.gjn__cards li.is-past .gjn__card-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(255, 250, 235, 0) 30%, rgba(255, 250, 235, 0.75) 50%, rgba(255, 250, 235, 0) 70%);
+  transform: translateX(-110%);
+  animation: gjn-card-flash 0.85s ease-out 0.15s both;
+}
+
+@keyframes gjn-card-flash {
+  to { transform: translateX(110%); }
+}
+
+/* ------------------------------------------------------- "a closer look" */
+.gjn__closer {
+  position: absolute;
+  right: clamp(10px, 2.2vw, 38px);
+  bottom: 9svh;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  color: #8a6f3a;
+}
+
+.gjn__closer span {
+  writing-mode: vertical-rl;
+  font-size: clamp(9px, 0.76vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.gjn__closer i {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(138, 111, 58, 0.75);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 14px;
+  animation: gjn-nudge 2.2s ease-in-out infinite;
+}
+
+@keyframes gjn-nudge {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+
+/* --------------------------------------------------------- reveal states */
+.js .gjn [data-at] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .gjn [data-at].is-past {
+  opacity: 1;
+  transform: none;
+}
+
+.js .gjn .gjn__cards li[data-at] { transform: translateY(30px); transition-duration: 0.55s, 0.6s; }
+.js .gjn__specs li[data-at] { transform: translateY(14px) translateX(10px); }
+
+/* --------------------------------------------------------------- compact */
+@media (max-width: 1023px) {
+  .gjn__track { height: auto; }
+
+  .gjn__stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+    padding-bottom: 40px;
+  }
+
+  .gjn__view {
+    position: relative;
+    height: clamp(320px, 52svh, 520px);
+    overflow: hidden;
+  }
+
+  .gjn__scene {
+    width: max(100%, calc(clamp(320px, 52svh, 520px) * 1.7778));
+    top: 50%;
+  }
+
+  .gjn__copy {
+    position: relative;
+    inset: auto;
+    width: auto;
+    padding: 46px clamp(20px, 6vw, 56px) 26px;
+  }
+
+  .gjn__eyebrow { font-size: 11px; margin-bottom: 10px; }
+  .gjn__title { font-size: clamp(30px, 7.6vw, 44px); margin-bottom: 12px; }
+  .gjn__rule { margin-bottom: 10px; }
+  .gjn__rule i { flex-basis: 90px; }
+  .gjn__sub { font-size: 11px; margin-bottom: 12px; }
+  .gjn__desc { font-size: clamp(14px, 3.8vw, 16px); margin-bottom: 18px; }
+  .gjn__cta { padding: 12px 22px; font-size: 11px; gap: 8px; }
+
+  .gjn__specs {
+    position: relative;
+    inset: auto;
+    width: auto;
+    padding: 30px clamp(20px, 6vw, 56px) 6px;
+  }
+
+  .gjn__specs-title { font-size: 11px; margin-bottom: 14px; }
+  .gjn__specs ul { gap: 13px; }
+  .gjn__tile { flex-basis: 46px; height: 46px; }
+  .gjn__specs h3 { font-size: 14.5px; }
+  .gjn__specs p { font-size: 12.5px; }
+  .gjn__legacy { margin-top: 18px; padding-top: 14px; font-size: 11px; }
+
+  .gjn__cards {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 14px;
+    padding: 26px clamp(20px, 6vw, 56px) 0;
+  }
+
+  .gjn__cards h3 { font-size: 11.5px; }
+  .gjn__cards p { font-size: 11px; }
+
+  .gjn__cue,
+  .gjn__closer { display: none; }
+}
+
+@media (max-width: 519px) {
+  .gjn__cards { grid-template-columns: 1fr 1fr; }
+}
+
+/* ------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .gjn__neck-move {
+    transform: translateX(-50%) !important;
+    opacity: 1 !important;
+    transition: none;
+  }
+
+  .gjn.is-settled .gjn__neck-breathe,
+  .gjn__cue-line::after,
+  .gjn__closer i { animation: none; }
+
+  .js .gjn [data-at] { transform: none; transition: opacity 0.6s ease; }
+  .js .gjn__specs li[data-at],
+  .js .gjn .gjn__cards li[data-at] { transform: none; }
+  .gjn__cards li.is-past .gjn__card-img::after { animation: none; opacity: 0; }
+}

@@ -1,0 +1,928 @@
+/* ==========================================================================
+   Ramya Jewellers — SECTION 06 · Gold Bangles  (Phase-02, keyframes 06+07)
+   --------------------------------------------------------------------------
+   The signature interaction: the section opens on the CLOSED marble lotus
+   (keyframe 06). Scroll drives --p; pure-CSS min()/max() windows on --p turn
+   it into: petal slices rotating open around the bud's base while the
+   open-state environment (splayed petal base, keyframe 07) crossfades in,
+   then the hero bangle rises and the supporting pairs fan outward into the
+   exact open arrangement. The arc annotation draws in afterwards, the podium
+   line swaps, and the five collection cards flash in BOTTOM→TOP.
+   Every step is continuous and fully reversible.
+   ========================================================================== */
+
+.gjbn {
+  --gjbn-gold: #a9853c;
+  --gjbn-brown: #6b4d1e;
+  --gjbn-ink: #4a3a22;
+  --gjbn-body: #7a6a52;
+  --gjbn-ivory: #f6f0e4;
+  --gjbn-travel: 360vh;
+  /* the flower-opening progress window (gold timeline compressed to ~p 0.50,
+     the second half of the pin performs the gold -> silver transformation) */
+  --po: min(1, max(0, calc((var(--p, 0) - 0.091) / 0.171)));
+  position: relative;
+  background: var(--gjbn-ivory);
+  font-family: "Jost", "Segoe UI", system-ui, sans-serif;
+}
+
+.gjbn__track {
+  position: relative;
+  height: calc(100vh + var(--gjbn-travel));
+  height: calc(100svh + var(--gjbn-travel));
+}
+
+.gjbn__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--gjbn-ivory);
+}
+
+.gjbn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 64px;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(to bottom, #f6f0e4, rgba(246, 240, 228, 0));
+}
+
+/* ------------------------------------------------- fixed-aspect scene layer */
+.gjbn__view { position: absolute; inset: 0; }
+
+.gjbn__scene {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100vw, 177.78svh);
+  aspect-ratio: 1536 / 864;
+  container-type: size;
+}
+
+.gjbn__scene > picture img,
+.gjbn__bg7 img,
+.gjbn__bg8 img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* pointer depth: environment drifts with the pointer, jewellery drifts
+   against it - transforms only, everything stays sharp */
+.gjbn__scene > picture {
+  display: block;
+  position: absolute;
+  inset: 0;
+  translate: calc(var(--mx, 0) * 7px) calc(var(--my, 0) * 5px);
+  transition: translate 0.35s ease-out;
+}
+
+.gjbn__bg7,
+.gjbn__bg8 {
+  translate: calc(var(--mx, 0) * 7px) calc(var(--my, 0) * 5px);
+  transition: translate 0.35s ease-out, opacity 0s;
+}
+
+.gjbn__bangle,
+.gjbn__bud {
+  translate: calc(var(--mx, 0) * -5px) calc(var(--my, 0) * -3px);
+  transition: translate 0.35s ease-out;
+}
+
+/* open-state environment (splayed petals) crossfades in as the bud opens */
+.gjbn__bg7 {
+  position: absolute;
+  inset: 0;
+  opacity: min(1, max(0, calc((var(--p, 0) - 0.103) / 0.114)));
+}
+
+.gjbn__bg7 img {
+  transform: scale(calc(0.975 + 0.025 * min(1, max(0, calc((var(--p, 0) - 0.103) / 0.137)))));
+  transform-origin: 50% 62%;
+}
+
+/* ----------------------------------------------- the closed bud, in slices */
+.gjbn__bud {
+  position: absolute;
+  left: 37.5%;
+  top: 28.36%;
+  width: 24.67%;
+  aspect-ratio: 852 / 823;      /* native cutout ratio */
+  pointer-events: none;
+}
+
+.gjbn__bud img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform, opacity;
+  transition: transform 0.15s linear, opacity 0.15s linear;
+  /* petals fade away once well open */
+  opacity: max(0, calc(1 - max(0, calc((var(--po) - 0.42) / 0.42))));
+}
+
+/* four petal groups, cut along the petal rims with small overlaps; all rotate
+   about the bud's base centre, outer groups further than inner ones */
+.gjbn__bud img:nth-child(1) {
+  clip-path: inset(0 66% 0 0);
+  transform-origin: 147% 100%;
+  transform: rotate(calc(var(--po) * -62deg)) translateY(calc(var(--po) * 5%));
+}
+
+.gjbn__bud img:nth-child(2) {
+  /* inner-left petal group - the finial column (42-58% above 24%) is excluded
+     so the gold cap never splits; it lifts away whole via the fifth layer */
+  clip-path: polygon(30% 0, 43% 0, 43% 18%, 52% 18%, 52% 100%, 30% 100%);
+  transform-origin: 91% 100%;
+  transform: rotate(calc(var(--po) * -30deg)) translateY(calc(var(--po) * 3%));
+}
+
+.gjbn__bud img:nth-child(3) {
+  clip-path: polygon(57% 0, 70% 0, 70% 100%, 48% 100%, 48% 18%, 57% 18%);
+  transform-origin: 9% 100%;
+  transform: rotate(calc(var(--po) * 30deg)) translateY(calc(var(--po) * 3%));
+}
+
+.gjbn__bud img:nth-child(4) {
+  clip-path: inset(0 0 0 66%);
+  transform-origin: -47% 100%;
+  transform: rotate(calc(var(--po) * 62deg)) translateY(calc(var(--po) * 5%));
+}
+
+/* the gold finial lifts away whole (never split between the petal groups) */
+.gjbn__bud img:nth-child(5) {
+  clip-path: inset(0 43% 82% 43%);
+  transform: translateY(calc(var(--po) * -46%));
+  opacity: max(0, calc(1 - var(--po) * 2.4));
+}
+
+/* --------------------------------------------------- the five bangles */
+.gjbn__bangle {
+  position: absolute;
+  margin: 0;
+  pointer-events: none;
+}
+
+.gjbn__bangle img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 14px 22px rgba(150, 108, 44, 0.22));
+}
+
+.gjbn__bangle > div {
+  transition: transform 0.15s linear, opacity 0.15s linear;
+  will-change: transform, opacity;
+}
+
+/* hero rises from within the flower */
+.gjbn__bangle--b1 { --w: min(1, max(0, calc((var(--p, 0) - 0.194) / 0.091))); }
+
+/* inner pair fans outward from behind the hero */
+.gjbn__bangle--b2, .gjbn__bangle--b3 { --w: min(1, max(0, calc((var(--p, 0) - 0.239) / 0.091))); }
+
+/* outer pair completes the arrangement */
+.gjbn__bangle--b4, .gjbn__bangle--b5 { --w: min(1, max(0, calc((var(--p, 0) - 0.285) / 0.091))); }
+
+.gjbn__bangle > div {
+  opacity: min(1, calc(var(--w) * 1.8));
+}
+
+.gjbn__bangle--b1 > div {
+  transform: translateY(calc((1 - var(--w)) * 24%)) scale(calc(0.84 + 0.16 * var(--w)));
+  transform-origin: 50% 100%;
+}
+
+.gjbn__bangle--b2 > div {
+  transform: translateX(calc((1 - var(--w)) * 42%)) translateY(calc((1 - var(--w)) * 12%))
+             rotate(calc((1 - var(--w)) * 10deg)) scale(calc(0.86 + 0.14 * var(--w)));
+  transform-origin: 85% 95%;
+}
+
+.gjbn__bangle--b3 > div {
+  transform: translateX(calc((1 - var(--w)) * -42%)) translateY(calc((1 - var(--w)) * 12%))
+             rotate(calc((1 - var(--w)) * -10deg)) scale(calc(0.86 + 0.14 * var(--w)));
+  transform-origin: 15% 95%;
+}
+
+.gjbn__bangle--b4 > div {
+  transform: translateX(calc((1 - var(--w)) * 66%)) translateY(calc((1 - var(--w)) * 16%))
+             rotate(calc((1 - var(--w)) * 14deg)) scale(calc(0.88 + 0.12 * var(--w)));
+  transform-origin: 90% 95%;
+}
+
+.gjbn__bangle--b5 > div {
+  transform: translateX(calc((1 - var(--w)) * -66%)) translateY(calc((1 - var(--w)) * 16%))
+             rotate(calc((1 - var(--w)) * -14deg)) scale(calc(0.88 + 0.12 * var(--w)));
+  transform-origin: 10% 95%;
+}
+
+/* selection focus: the matching staged bangle + its annotation glow gently.
+   Gated per phase (the gold dwell window / the silver settle) so the
+   choreography itself is never disturbed. */
+.gjbn:has(.gjbn__ph--gold.is-past:not(.is-out)) .gjbn__bangle.is-focus img {
+  filter: drop-shadow(0 14px 22px rgba(150, 108, 44, 0.22))
+          drop-shadow(0 0 18px rgba(214, 170, 80, 0.5))
+          brightness(1.05);
+}
+
+.gjbn.is-settled .gjbn__bangle--s.is-focus img {
+  filter: drop-shadow(0 14px 22px rgba(95, 100, 115, 0.2))
+          drop-shadow(0 0 18px rgba(205, 212, 226, 0.7))
+          brightness(1.05);
+}
+
+.gjbn:has(.gjbn__ph--gold.is-past:not(.is-out)) .gjbn__bangle.is-focus > div,
+.gjbn.is-settled .gjbn__bangle--s.is-focus > div { scale: 1.035; transition: scale 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.gjbn__bangle > div { scale: 1; transition: scale 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.gjbn__bangle img { transition: filter 0.5s ease; }
+
+.gjbn:has(.gjbn__ph--gold.is-past:not(.is-out)) .gjbn__alabel.is-focus { color: var(--gjbn-brown); }
+.gjbn:has(.gjbn__ph--gold.is-past:not(.is-out)) .gjbn__node.is-focus { border-color: var(--gjbn-gold); background: rgba(214, 180, 100, 0.35); }
+.gjbn.is-settled .gjbn__alabel--s.is-focus { color: #3d3831; }
+.gjbn.is-settled .gjbn__node--s.is-focus { border-color: #6f6a62; background: rgba(182, 180, 174, 0.4); }
+
+/* ------------------------------------------------- arc annotation system */
+.gjbn__arc {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.gjbn__arc path {
+  fill: none;
+  stroke: rgba(169, 133, 60, 0.55);
+  stroke-width: 1.1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gjbn__arc.is-past path { stroke-dashoffset: 0; }
+
+.gjbn__node {
+  position: absolute;
+  z-index: 6;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(169, 133, 60, 0.85);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.gjbn__node::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: var(--gjbn-gold);
+}
+
+.gjbn__alabel {
+  position: absolute;
+  z-index: 6;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: clamp(8.5px, 0.78cqw, 12.5px);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: #5c4a2a;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------- scene furniture */
+.gjbn__cue {
+  position: absolute;
+  left: 50%;
+  top: 2%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #8a6f3a;
+  pointer-events: none;
+}
+
+.gjbn__cue::before { content: ""; width: 1px; height: 5.5cqh; background: rgba(169, 133, 60, 0.55); }
+.gjbn__cue-lotus { font-size: clamp(13px, 1.35cqw, 22px); color: var(--gjbn-gold); }
+
+.gjbn__cue-text {
+  font-size: clamp(9px, 0.8cqw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  line-height: 1.8;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.gjbn__cue-mouse {
+  width: clamp(14px, 1.35cqw, 22px);
+  aspect-ratio: 22 / 34;
+  border: 1.5px solid rgba(138, 111, 58, 0.85);
+  border-radius: 100px;
+  position: relative;
+}
+
+.gjbn__cue-mouse::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 22%;
+  width: 2px;
+  height: 22%;
+  margin-left: -1px;
+  border-radius: 2px;
+  background: #8a6f3a;
+  animation: gjbn-wheel 1.9s ease-in-out infinite;
+}
+
+@keyframes gjbn-wheel {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  55%      { transform: translateY(70%); opacity: 0.35; }
+}
+
+.gjbn__cue::after { content: ""; width: 1px; height: 3cqh; background: rgba(169, 133, 60, 0.55); }
+
+.gjbn__podium-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #7c6845;
+  font-size: clamp(9px, 0.82cqw, 13.5px);
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.gjbn__podium-text::after {
+  content: "\2014\2009\25c8\2009\2014";
+  display: block;
+  font-size: 0.8em;
+  color: rgba(169, 133, 60, 0.75);
+  margin-top: 4px;
+}
+
+.gjbn__podium-text--closed { top: 75%; }
+.gjbn__podium-text--open { top: 70%; }
+
+/* dots (closed-state furniture; wired to the collection in the next phase) */
+.gjbn__dots {
+  position: absolute;
+  left: 50%;
+  top: 93%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.gjbn__dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid rgba(169, 133, 60, 0.7);
+  box-sizing: border-box;
+}
+
+.gjbn__dots i:first-child { background: var(--gjbn-gold); }
+
+/* vertical side text (open state) */
+.gjbn__side {
+  position: absolute;
+  left: 5.6%;
+  top: 63%;
+  transform: translate(-50%, 0);
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  font-size: clamp(8.5px, 0.72cqw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #8a6f3a;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------- left editorial */
+.gjbn__copy {
+  position: absolute;
+  left: clamp(20px, 6.5vw, 100px);
+  top: 9svh;
+  width: clamp(230px, 19vw, 330px);
+  z-index: 3;
+}
+
+.gjbn__eyebrow {
+  margin: 0 0 1vw;
+  color: var(--gjbn-gold);
+  font-size: clamp(10px, 0.82vw, 13.5px);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.gjbn__title {
+  margin: 0 0 1vw;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(30px, 3.2vw, 54px);
+  line-height: 1.08;
+  color: #6d5124;
+}
+
+.gjbn__orn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 1.1vw;
+}
+
+.gjbn__orn i { width: clamp(46px, 5vw, 80px); height: 1px; background: rgba(169, 133, 60, 0.7); }
+
+.gjbn__orn::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--gjbn-gold);
+  transform: rotate(45deg);
+}
+
+.gjbn__desc {
+  margin: 0 0 1.6vw;
+  font-size: clamp(12.5px, 0.98vw, 16.5px);
+  line-height: 1.62;
+  color: var(--gjbn-body);
+}
+
+.gjbn__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8vw;
+  padding: clamp(10px, 0.9vw, 15px) clamp(18px, 1.7vw, 28px);
+  border: 1px solid rgba(169, 133, 60, 0.75);
+  color: var(--gjbn-brown);
+  background: rgba(255, 252, 244, 0.4);
+  text-decoration: none;
+  font-size: clamp(10px, 0.8vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+.gjbn__cta span { font-size: 1.3em; transition: transform 0.35s ease; }
+.gjbn__cta:hover, .gjbn__cta:focus-visible { background: var(--gjbn-gold); color: #fffcf4; }
+.gjbn__cta:hover span { transform: translateX(5px); }
+
+/* --------------------------------------------------------- right column */
+.gjbn__aside {
+  position: absolute;
+  right: clamp(18px, 3vw, 52px);
+  top: 9svh;
+  width: clamp(210px, 14.5vw, 240px);
+  z-index: 3;
+  color: var(--gjbn-ink);
+}
+
+.gjbn__aside-orn { margin: 0 0 0.9vw; color: var(--gjbn-gold); font-size: clamp(14px, 1.2vw, 20px); }
+
+.gjbn__aside h3 {
+  margin: 0 0 0.9vw;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(19px, 1.75vw, 30px);
+  line-height: 1.18;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gjbn-brown);
+}
+
+.gjbn__aside-rule { width: 56px; height: 1px; background: rgba(169, 133, 60, 0.6); margin: 0 0 1.1vw; }
+
+.gjbn__aside > p {
+  margin: 0 0 1.3vw;
+  font-size: clamp(11.5px, 0.92vw, 15px);
+  line-height: 1.55;
+  color: var(--gjbn-body);
+}
+
+.gjbn__aside ul { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(10px, 1.5svh, 17px); }
+
+.gjbn__aside li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(11.5px, 0.92vw, 15px);
+  line-height: 1.3;
+}
+
+.gjbn__tile {
+  flex: 0 0 clamp(34px, 2.9vw, 48px);
+  height: clamp(34px, 2.9vw, 48px);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(to bottom, #fbf6ea, #f3ebd8);
+  border: 1px solid rgba(190, 154, 78, 0.45);
+  box-shadow: 0 6px 14px rgba(150, 110, 50, 0.1);
+}
+
+.gjbn__tile svg {
+  width: 56%;
+  height: 56%;
+  stroke: #a8823f;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.gjbn__quote {
+  margin: clamp(14px, 2.4svh, 26px) 0 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(17px, 1.5vw, 26px);
+  line-height: 1.35;
+  color: #6d5124;
+}
+
+/* --------------------------------------------------------- collection band */
+.gjbn__cards {
+  position: absolute;
+  left: 50%;
+  bottom: 3.6svh;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(10px, 1.5vw, 26px);
+  width: min(70vw, 1080px);
+  translate: -50% 0;               /* translate property - reveal animates transform */
+  z-index: 4;
+}
+
+.gjbn__cards li { cursor: pointer; }
+
+.gjbn__cards li .gjbn__card-img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 2px solid transparent;
+  border-radius: 6px 6px 0 0;
+  transition: border-color 0.4s ease;
+  pointer-events: none;
+}
+
+.gjbn__cards li.is-active figure {
+  box-shadow: 0 16px 32px rgba(140, 100, 45, 0.22);
+  translate: 0 -4px;
+}
+
+.gjbn__cards li figure { transition: box-shadow 0.45s ease, translate 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+.gjbn__cards li.is-active .gjbn__card-img::before { border-color: rgba(190, 152, 70, 0.85); }
+.gjbn__cards li.is-active h4 { color: var(--gjbn-brown); }
+
+.gjbn__cards figure {
+  margin: 0;
+  background: rgba(253, 250, 244, 0.92);
+  border: 1px solid rgba(190, 154, 78, 0.35);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 12px 26px rgba(140, 100, 45, 0.14);
+}
+
+.gjbn__card-img { position: relative; aspect-ratio: 266 / 109; overflow: hidden; }
+
+.gjbn__cards img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.gjbn__cards figcaption { padding: clamp(6px, 0.9svh, 10px) 10px clamp(8px, 1.1svh, 12px); }
+
+.gjbn__cards small {
+  display: block;
+  font-size: clamp(8px, 0.66vw, 11px);
+  letter-spacing: 0.22em;
+  color: #9b8a68;
+  margin-bottom: 2px;
+}
+
+.gjbn__cards h4 {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(12px, 1.05vw, 17px);
+  color: var(--gjbn-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* quick flash as each card arrives */
+.gjbn__cards li.is-past .gjbn__card-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(255, 250, 235, 0) 30%, rgba(255, 250, 235, 0.8) 50%, rgba(255, 250, 235, 0) 70%);
+  transform: translateX(-110%);
+  animation: gjbn-flash 0.8s ease-out 0.12s both;
+}
+
+@keyframes gjbn-flash { to { transform: translateX(110%); } }
+
+/* arrows (secondary; wired to the collection interaction next phase) */
+.gjbn__arrow {
+  position: absolute;
+  bottom: 8svh;
+  width: clamp(30px, 2.6vw, 42px);
+  height: clamp(30px, 2.6vw, 42px);
+  border-radius: 50%;
+  border: 1px solid rgba(169, 133, 60, 0.55);
+  background: rgba(255, 252, 244, 0.55);
+  color: var(--gjbn-gold);
+  cursor: pointer;
+  z-index: 4;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.gjbn__arrow:hover { background: var(--gjbn-gold); color: #fffcf4; }
+.gjbn__arrow--prev { left: clamp(60px, 9.4vw, 165px); }
+.gjbn__arrow--next { right: clamp(60px, 9.4vw, 165px); }
+
+/* --------------------------------------------------------- reveal states */
+.js .gjbn [data-at]:not(.gjbn__arc) {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.75s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .gjbn [data-at]:not(.gjbn__arc).is-past { opacity: 1; transform: none; }
+
+.js .gjbn .gjbn__cards li[data-at] { transform: translateY(30px); transition-duration: 0.5s, 0.55s; }
+
+.js .gjbn .gjbn__alabel[data-at] { transform: translateX(-50%) translateY(8px); }
+.js .gjbn .gjbn__alabel[data-at].is-past { transform: translateX(-50%); }
+.js .gjbn .gjbn__node[data-at] { transform: translate(-50%, -50%) scale(0.4); }
+.js .gjbn .gjbn__node[data-at].is-past { transform: translate(-50%, -50%); }
+
+/* gold-phase (closed-state) elements leaving on open - desktop timeline only */
+@media (min-width: 1024px) {
+  .js .gjbn [data-until].is-out {
+    opacity: 0 !important;
+    pointer-events: none;
+    transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* --------------------------------------------------------------- compact */
+@media (max-width: 1023px) {
+  .gjbn__track { height: auto; }
+
+  .gjbn__stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+    padding-bottom: 36px;
+  }
+
+  .gjbn__view {
+    position: relative;
+    height: clamp(320px, 52svh, 500px);
+    overflow: hidden;
+  }
+
+  .gjbn__scene {
+    width: max(100%, calc(clamp(320px, 52svh, 500px) * 1.7778));
+    top: 50%;
+  }
+
+  .gjbn__copy {
+    position: relative;
+    inset: auto;
+    width: auto;
+    padding: 46px clamp(20px, 6vw, 56px) 22px;
+  }
+
+  .gjbn__eyebrow { font-size: 11px; margin-bottom: 10px; }
+  .gjbn__title { font-size: clamp(30px, 7.8vw, 44px); margin-bottom: 10px; }
+  .gjbn__desc { font-size: clamp(14px, 3.8vw, 16px); margin-bottom: 18px; }
+  .gjbn__cta { padding: 12px 22px; font-size: 11px; gap: 8px; }
+
+  .gjbn__aside {
+    position: relative;
+    inset: auto;
+    width: auto;
+    padding: 28px clamp(20px, 6vw, 56px) 6px;
+  }
+
+  .gjbn__aside h3 { font-size: 22px; }
+  .gjbn__aside > p { font-size: 14px; }
+  .gjbn__aside li { font-size: 13.5px; }
+  .gjbn__tile { flex-basis: 42px; height: 42px; }
+  .gjbn__quote { font-size: 19px; }
+
+  .gjbn__cards {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    translate: 0 0;
+    width: auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 26px clamp(20px, 6vw, 56px) 0;
+  }
+
+  .gjbn__cards li:last-child { grid-column: 1 / -1; }
+  .gjbn__cue, .gjbn__side, .gjbn__dots, .gjbn__arrow { display: none; }
+  .gjbn__alabel, .gjbn__node, .gjbn__arc { display: none; }
+}
+
+/* ------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .gjbn__bud img, .gjbn__bangle > div { transition: none; }
+  .gjbn__scene > picture, .gjbn__bg7, .gjbn__bangle, .gjbn__bud { translate: 0 0; transition: none; }
+  .gjbn.is-settled .gjbn__bangle.is-focus > div { scale: 1; }
+  .gjbn__cue-mouse::after { animation: none; }
+  .gjbn__arc path { transition: none; }
+  .js .gjbn [data-at] { transform: none !important; transition: opacity 0.6s ease; }
+  .gjbn__cards li.is-past .gjbn__card-img::after { animation: none; opacity: 0; }
+}
+
+/* ==========================================================================
+   SECTION 08 · SILVER BANGLES (keyframe 08 · spec §12)
+   --------------------------------------------------------------------------
+   Deep scroll performs the material transformation: the white-marble silver
+   environment fades over the gold one, a light sheen sweeps the stage, each
+   gold bangle dissolves (blur + settle) while its silver counterpart
+   emerges in the same spatial position (outer pair -> inner pair -> hero),
+   and the editorial, annotations and collection restate themselves in 925
+   sterling silver. Every step rides --p, so it is continuous + reversible.
+   ========================================================================== */
+
+/* zero-size scroll-phase markers (drive :has() gates) */
+.gjbn__ph { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* silver environment crossfades over the gold open state */
+.gjbn__bg8 {
+  position: absolute;
+  inset: 0;
+  opacity: min(1, max(0, calc((var(--p, 0) - 0.56) / 0.16)));
+}
+
+.gjbn__bg8 img {
+  transform: scale(calc(0.985 + 0.015 * min(1, max(0, calc((var(--p, 0) - 0.56) / 0.2)))));
+  transform-origin: 50% 60%;
+}
+
+/* the light sheen that performs the hand-off */
+.gjbn__sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 42%;
+  z-index: 6;
+  pointer-events: none;
+  --shw: min(1, max(0, calc((var(--p, 0) - 0.6) / 0.18)));
+  opacity: min(1, calc(3 * var(--shw) * (1 - var(--shw))));
+  transform: translateX(calc(-120% + var(--shw) * 340%)) skewX(-14deg);
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 12%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 88%);
+}
+
+/* ---- gold bangles dissolve (staggered: outer -> inner -> hero) */
+.gjbn__bangle picture { display: block; transition: opacity 0.15s linear, transform 0.15s linear; }
+
+.gjbn__bangle--b4, .gjbn__bangle--b5 { --wo: min(1, max(0, calc((var(--p, 0) - 0.575) / 0.07))); }
+.gjbn__bangle--b2, .gjbn__bangle--b3 { --wo: min(1, max(0, calc((var(--p, 0) - 0.615) / 0.07))); }
+.gjbn__bangle--b1 { --wo: min(1, max(0, calc((var(--p, 0) - 0.655) / 0.07))); }
+
+.gjbn__bangle:not(.gjbn__bangle--s) picture {
+  opacity: calc(1 - var(--wo, 0));
+  transform: scale(calc(1 - 0.05 * var(--wo, 0)));
+}
+
+/* ---- silver bangles emerge in place (outer -> inner -> hero finale) */
+.gjbn__bangle--sb4, .gjbn__bangle--sb5 { --sw: min(1, max(0, calc((var(--p, 0) - 0.6) / 0.1))); }
+.gjbn__bangle--sb2, .gjbn__bangle--sb3 { --sw: min(1, max(0, calc((var(--p, 0) - 0.64) / 0.1))); }
+.gjbn__bangle--sb1 { --sw: min(1, max(0, calc((var(--p, 0) - 0.68) / 0.1))); }
+
+.gjbn__bangle--s > div {
+  opacity: min(1, calc(var(--sw, 0) * 1.6));
+  transform: translateY(calc((1 - var(--sw, 0)) * 6%)) scale(calc(0.93 + 0.07 * var(--sw, 0)));
+  transform-origin: 50% 85%;
+}
+
+.gjbn__bangle--s img { filter: drop-shadow(0 14px 22px rgba(95, 100, 115, 0.2)); }
+
+/* ---- the shared annotation system turns silver with the material */
+.gjbn .gjbn__arc path { transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.9s ease; }
+.gjbn:has(.gjbn__ph--silver.is-past) .gjbn__arc path { stroke: rgba(150, 147, 140, 0.6); }
+
+.gjbn__node--s { border-color: rgba(130, 128, 122, 0.85); }
+.gjbn__node--s::after { background: #8d8a84; }
+.gjbn__alabel--s { color: #4c473f; }
+
+/* ---- silver editorial (overlays the gold copy in the same position) */
+.gjbn__copy--s .gjbn__title { color: #45403a; }
+.gjbn__copy--s .gjbn__eyebrow { color: #8a8073; }
+.gjbn__copy--s .gjbn__orn i { background: rgba(130, 125, 115, 0.65); }
+.gjbn__copy--s .gjbn__orn::after { border-color: #8a857b; }
+
+.gjbn__copy--s .gjbn__cta {
+  border-color: rgba(96, 91, 82, 0.65);
+  color: #45403a;
+  background: rgba(255, 253, 248, 0.5);
+}
+
+.gjbn__copy--s .gjbn__cta:hover, .gjbn__copy--s .gjbn__cta:focus-visible { background: #55504a; color: #fdfbf6; }
+
+/* ---- silver aside: cool tiles + the silver quote */
+.gjbn__aside--s .gjbn__tile {
+  background: linear-gradient(to bottom, #fdfcfa, #f1efe9);
+  border-color: rgba(150, 145, 135, 0.45);
+  box-shadow: 0 6px 14px rgba(120, 115, 105, 0.12);
+}
+
+.gjbn__aside--s .gjbn__tile svg { stroke: #55504a; }
+.gjbn__aside--s .gjbn__quote { color: #45403a; }
+
+/* ---- silver collection cards: refined pop/reveal (spec §12) */
+.gjbn__cards--s li.is-active .gjbn__card-img::before { border-color: rgba(140, 138, 132, 0.9); }
+.gjbn__cards--s li.is-active h4 { color: #3d3831; }
+.gjbn__cards--s figure { border-color: rgba(150, 145, 135, 0.4); }
+
+.js .gjbn .gjbn__cards--s li[data-at] { transform: translateY(26px) scale(0.88); }
+
+.js .gjbn .gjbn__cards--s li[data-at].is-past { animation: gjbn-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+@keyframes gjbn-pop {
+  0% { transform: translateY(26px) scale(0.88); }
+  100% { transform: none; }
+}
+
+/* silver arrows follow the silver ink */
+.gjbn__arrow--s { border-color: rgba(120, 115, 108, 0.55); color: #6f6a62; }
+.gjbn__arrow--s:hover { background: #6f6a62; color: #fdfbf6; }
+
+/* overlaid silver blocks are inert until they arrive */
+.js .gjbn .gjbn__copy--s:not(.is-past),
+.js .gjbn .gjbn__aside--s:not(.is-past),
+.js .gjbn .gjbn__cards--s:not(.is-past),
+.js .gjbn .gjbn__arrow--s:not(.is-past) { pointer-events: none; }
+
+/* the mobile-only silver scene block (desktop shows the transformation in
+   the main pinned scene instead) */
+.gjbn__view--s { display: none; }
+
+@media (max-width: 1023px) {
+  /* mobile recomposition: the gold view stays gold; the silver chapter
+     follows as its own flow block (nothing folds away on mobile) */
+  .gjbn__view:not(.gjbn__view--s) .gjbn__bg8,
+  .gjbn__view:not(.gjbn__view--s) .gjbn__bangle--s,
+  .gjbn__sheen { display: none; }
+
+  .gjbn__view--s {
+    display: block;
+    position: relative;
+    height: clamp(320px, 52svh, 500px);
+    overflow: hidden;
+    margin-top: 6px;
+  }
+
+  .gjbn__view--s .gjbn__bg8 { opacity: 1; translate: 0 0; }
+  .gjbn__view--s .gjbn__bg8 img { transform: none; }
+  .gjbn__view--s .gjbn__bangle--s { translate: 0 0; }
+  .gjbn__view--s .gjbn__bangle--s > div { opacity: 1; transform: none; }
+  .gjbn__view--s .gjbn__bangle--s picture { filter: none; }
+  .gjbn__copy--s { padding-top: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gjbn__sheen { display: none; }
+  .gjbn__bg8 { translate: 0 0; transition: none; }
+  .gjbn__bangle picture { transition: none; }
+  .js .gjbn .gjbn__cards--s li[data-at].is-past { animation: none; }
+}

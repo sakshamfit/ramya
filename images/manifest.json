@@ -1,0 +1,52 @@
+{
+  "necklace": {
+    "image": "images/necklace.webp",
+    "glints": "images/necklace-glints.png",
+    "jewel": [
+      0.197,
+      0.3107,
+      0.6006,
+      0.4366
+    ]
+  },
+  "ring": {
+    "image": "images/ring.webp",
+    "glints": "images/ring-glints.png",
+    "jewel": [
+      0.2807,
+      0.3597,
+      0.4373,
+      0.2888
+    ]
+  },
+  "earrings": {
+    "image": "images/earrings.webp",
+    "glints": "images/earrings-glints.png",
+    "jewel": [
+      0.2742,
+      0.3191,
+      0.4439,
+      0.3495
+    ]
+  },
+  "bangles": {
+    "image": "images/bangles.webp",
+    "glints": "images/bangles-glints.png",
+    "jewel": [
+      0.2285,
+      0.288,
+      0.5091,
+      0.4057
+    ]
+  },
+  "pendant-set": {
+    "image": "images/pendant-set.webp",
+    "glints": "images/pendant-set-glints.png",
+    "jewel": [
+      0.2415,
+      0.2525,
+      0.5091,
+      0.4564
+    ]
+  }
+}
